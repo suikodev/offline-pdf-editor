@@ -3,7 +3,7 @@ import React, { FormEvent, useRef } from "react";
 
 export const SelectFileButton: React.FC<SelectFileButtonProps> = (props) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { onFilesSelected, accept, ...buttonProps } = props;
+  const { onFilesSelected, accept, multiple, ...buttonProps } = props;
 
   const handleFilesSelected = (e: FormEvent<HTMLInputElement>) => {
     const files = e.currentTarget.files;
@@ -18,6 +18,7 @@ export const SelectFileButton: React.FC<SelectFileButtonProps> = (props) => {
         ref={inputRef}
         accept={accept}
         onChange={handleFilesSelected}
+        multiple={multiple}
         hidden
       />
       <Button
@@ -38,4 +39,8 @@ export type SelectFileButtonProps = {
    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#htmlattrdefaccept
    */
   accept?: string;
+  /**
+   * if true, user can choose more than one file
+   */
+  multiple?: boolean;
 } & Omit<ButtonProps, "onClick">;
