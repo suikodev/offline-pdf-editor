@@ -1,8 +1,17 @@
-import { Heading } from "@chakra-ui/layout";
 import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Home } from "../pages/Home";
 
 function App() {
-  return <Heading>offline PDF editor</Heading>;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;
