@@ -48,7 +48,7 @@ export const Header: React.FC = () => {
     <Container as="header" maxWidth="container.xl" paddingY="1rem">
       <Flex justify="start" align="center">
         <Heading size="lg">PDF Editer</Heading>
-        <Flex justify="end" flex="1">
+        <Flex justify="flex-end" flex="1">
           <HStack spacing={2}>
             <GithubLink href="https://github.com/nacht42/offline-pdf-editor" />
             <ThemeToggleButton />
