@@ -8,8 +8,8 @@ import { Overview } from "../pages/overview/Overview";
 function App() {
   return (
     <>
-      <Header />
       <BrowserRouter>
+        <Header />
         <Switch>
           <Route path={routes.OVERVIEW}>
             <Overview />
