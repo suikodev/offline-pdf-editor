@@ -9,18 +9,18 @@ import { Pdf } from "../storage/PdfStore";
 /**
  * click the button to choose pdf files, then files will store in browser
  */
-export const ChoosePDFButton: React.FC<ChoosePDFsButtonProps> = (props) => {
+export const ChoosePdfButton: React.FC<ChoosePdfButtonProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
-  const handlePDFSelect = async (files: FileList) => {
-    const PDFUint8Array = new Uint8Array(await files[0].arrayBuffer());
+  const handlePdfSelect = async (files: FileList) => {
+    const PdfUint8Array = new Uint8Array(await files[0].arrayBuffer());
     setIsLoading(true);
     const pdfId = nanoid();
     const pdf: Pdf = {
       id: pdfId,
       filename: files[0].name,
-      content: PDFUint8Array,
+      content: PdfUint8Array,
     };
     await PdfStore.setItem(pdfId, pdf);
     setIsLoading(false);
@@ -31,13 +31,13 @@ export const ChoosePDFButton: React.FC<ChoosePDFsButtonProps> = (props) => {
       isLoading={isLoading}
       accept="application/pdf"
       multiple
-      onFilesSelected={handlePDFSelect}
+      onFilesSelected={handlePdfSelect}
       {...props}
     ></SelectFileButton>
   );
 };
 
-type ChoosePDFsButtonProps =
+type ChoosePdfButtonProps =
   | {
       /**
        * callback when PDF is stored on browser successfully.

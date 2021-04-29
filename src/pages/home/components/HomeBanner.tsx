@@ -1,6 +1,6 @@
 import { Container, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
-import { ChoosePDFButton } from "../../../common/components/ChoosePDFsButton";
+import { ChoosePdfButton } from "../../../common/components/ChoosePdfButton";
 
 export const HomeBanner: React.FC = () => {
   return (
@@ -12,9 +12,9 @@ export const HomeBanner: React.FC = () => {
           all page have loaded. your PDFs and your personal infomation won&#39;t
           send to any server FOREVER.
         </Text>
-        <ChoosePDFButton size="lg" colorScheme="brand" marginY="2rem">
+        <ChoosePdfButton size="lg" colorScheme="brand" marginY="2rem">
           choose PDF(s)
-        </ChoosePDFButton>
+        </ChoosePdfButton>
       </Flex>
     </Container>
   );
