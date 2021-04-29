@@ -1,6 +1,6 @@
 import { Container } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { PDFStore } from "../../common/storage";
+import { PdfStore } from "../../common/storage";
 import { PDFDocument } from "./components/PDFDocument";
 
 type PDF = {
@@ -15,15 +15,9 @@ export const Overview: React.FC = () => {
   useEffect(() => {
     const getPDFs = async () => {
       const PDFFIlesInStore: PDF[] = [];
-      await PDFStore.iterate<
-        { filename: string; content: Uint8Array },
-        unknown
-      >((value, key) => {
+      await PdfStore.iterate((value, key) => {
         console.log("pdfId:", key);
-        PDFFIlesInStore.push({
-          id: key,
-          ...value,
-        });
+        PDFFIlesInStore.push(value);
       });
       setPDFFiles(PDFFIlesInStore);
     };
