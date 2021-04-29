@@ -1,35 +1,30 @@
 import { Container } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { PdfStore } from "../../common/storage";
+import { Pdf } from "../../common/storage/PdfStore";
 import { PDFDocument } from "./components/PDFDocument";
 
-type PDF = {
-  id: string;
-  filename: string;
-  content: Uint8Array;
-};
-
 export const Overview: React.FC = () => {
-  const [PDFFiles, setPDFFiles] = useState<PDF[] | null>(null);
-  console.log(PDFFiles?.length);
+  const [PdfFiles, setPdfFiles] = useState<Pdf[] | null>(null);
   useEffect(() => {
-    const getPDFs = async () => {
-      const PDFFIlesInStore: PDF[] = [];
-      await PdfStore.iterate((value, key) => {
-        console.log("pdfId:", key);
-        PDFFIlesInStore.push(value);
+    const getPdfFilesFromLocalStore = async () => {
+      const PdfFilesInStore: Pdf[] = [];
+      await PdfStore.iterate((value) => {
+        PdfFilesInStore.push(value);
       });
-      setPDFFiles(PDFFIlesInStore);
+      setPdfFiles(PdfFilesInStore);
     };
-    getPDFs();
+    getPdfFilesFromLocalStore();
   }, []);
-  return PDFFiles === null ? (
-    <></>
-  ) : (
-    <Container as="header" maxWidth="container.xl">
-      {PDFFiles.map((i) => (
-        <PDFDocument key={i.id} file={i.content} filename={i.filename} />
-      ))}
-    </Container>
+  return (
+    <>
+      {PdfFiles && (
+        <Container as="header" maxWidth="container.xl">
+          {PdfFiles.map((i) => (
+            <PDFDocument key={i.id} file={i.content} filename={i.filename} />
+          ))}
+        </Container>
+      )}
+    </>
   );
 };
