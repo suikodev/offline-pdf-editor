@@ -2,7 +2,7 @@ import { Container } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { PdfStore } from "../../common/storage";
 import { Pdf } from "../../common/storage/PdfStore";
-import { PDFDocument } from "./components/PDFDocument";
+import { PdfDocument } from "./components/PdfDocument";
 
 export const Overview: React.FC = () => {
   const [PdfFiles, setPdfFiles] = useState<Pdf[] | null>(null);
@@ -21,7 +21,7 @@ export const Overview: React.FC = () => {
       {PdfFiles && (
         <Container as="header" maxWidth="container.xl">
           {PdfFiles.map((i) => (
-            <PDFDocument key={i.id} file={i.content} filename={i.filename} />
+            <PdfDocument key={i.id} file={i.content} filename={i.filename} />
           ))}
         </Container>
       )}

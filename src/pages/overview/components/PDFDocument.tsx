@@ -2,7 +2,7 @@ import { Flex, Grid, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 
-export const PDFDocument: React.FC<{ file: Uint8Array; filename: string }> = (
+export const PdfDocument: React.FC<{ file: Uint8Array; filename: string }> = (
   props
 ) => {
   const [numPages, setNumPages] = useState(0);
