@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { SelectFileButton, SelectFileButtonProps } from "./SelectFileButton";
-import { nanoid } from "@reduxjs/toolkit";
-import { PdfStore } from "../storage";
-import { Pdf } from "../storage/PdfStore";
+import { useAppDispatch } from "../hooks";
+import { concat } from "../../features/pdfInfo/pdfInfoSlice";
 
 /**
  * click the button to choose pdf files, then files will store in browser
  */
 export const ChoosePdfButton: React.FC<ChoosePdfButtonProps> = (props) => {
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const {
     onPdfStoreError,
@@ -19,13 +19,11 @@ export const ChoosePdfButton: React.FC<ChoosePdfButtonProps> = (props) => {
     try {
       const PdfUint8Array = new Uint8Array(await files[0].arrayBuffer());
       setIsLoading(true);
-      const pdfId = nanoid();
-      const pdf: Pdf = {
-        id: pdfId,
+      const pdf = {
         filename: files[0].name,
         content: PdfUint8Array,
       };
-      await PdfStore.setItem(pdfId, pdf);
+      dispatch(concat([pdf]));
       setIsLoading(false);
       onPdfStoreSuccess?.();
     } catch (e) {
