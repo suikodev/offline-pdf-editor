@@ -12,13 +12,19 @@ const initialState: PdfState = {
   pdfList: [],
 };
 
-export const pdfSlice = createSlice({
+const pdfSlice = createSlice({
   name: "pdf",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(concat.fulfilled, (state, action) => {
       state.pdfList = [...state.pdfList, ...action.payload];
+    });
+
+    builder.addCase(remove.fulfilled, (state, action) => {
+      state.pdfList = state.pdfList.filter((i) =>
+        action.payload.includes(i.id)
+      );
     });
   },
 });
@@ -35,3 +41,16 @@ const concat = createAsyncThunk(
     return result;
   }
 );
+
+const remove = createAsyncThunk(
+  "pdf/remove",
+  async (pdfIdList: string[]): Promise<string[]> => {
+    for (const id of pdfIdList) {
+      await PdfStore.removeItem(id);
+    }
+    return pdfIdList;
+  }
+);
+
+export { concat, remove };
+export default pdfSlice.reducer;
