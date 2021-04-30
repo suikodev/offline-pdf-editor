@@ -9,6 +9,11 @@ import { Pdf } from "../storage/PdfStore";
  */
 export const ChoosePdfButton: React.FC<ChoosePdfButtonProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const {
+    onPdfStoreError,
+    onPdfStoreSuccess,
+    ...selectFileButtonProps
+  } = props;
 
   const handlePdfSelect = async (files: FileList) => {
     try {
@@ -22,9 +27,9 @@ export const ChoosePdfButton: React.FC<ChoosePdfButtonProps> = (props) => {
       };
       await PdfStore.setItem(pdfId, pdf);
       setIsLoading(false);
-      props.onPdfStoreSuccess?.();
+      onPdfStoreSuccess?.();
     } catch (e) {
-      props.onPdfStoreError?.(e);
+      onPdfStoreError?.(e);
     }
   };
   return (
@@ -33,7 +38,7 @@ export const ChoosePdfButton: React.FC<ChoosePdfButtonProps> = (props) => {
       accept="application/pdf"
       multiple
       onFilesSelected={handlePdfSelect}
-      {...props}
+      {...selectFileButtonProps}
     ></SelectFileButton>
   );
 };
