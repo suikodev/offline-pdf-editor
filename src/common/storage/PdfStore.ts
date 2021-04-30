@@ -14,9 +14,10 @@ const PdfStorage = localforage.createInstance({
 
 export class PdfStore {
   static iterate: (
-    iteratee: (value: Pdf, key: string, iterationNumber: number) => void
+    iteratee: (value: Pdf, pdfId: string, iterationNumber: number) => void
   ) => Promise<void> = PdfStorage.iterate;
-  static setItem: (key: string, value: Pdf) => Promise<Pdf> =
+  static setItem: (pdfId: string, value: Pdf) => Promise<Pdf> =
     PdfStorage.setItem;
-  static getITem: (key: string) => Promise<Pdf | null> = PdfStorage.getItem;
+  static getItem: (pdfId: string) => Promise<Pdf | null> = PdfStorage.getItem;
+  static removeItem: (pdfId: string) => Promise<void> = PdfStorage.removeItem;
 }
