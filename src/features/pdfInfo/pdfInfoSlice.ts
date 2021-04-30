@@ -2,37 +2,20 @@ import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import { Pdf, PdfStore } from "../../common/storage/PdfStore";
 
 // omit pdf content to avoid putting non-serializable data in state
-type PdfPropertiesInState = Omit<Pdf, "content">;
+type PdfInfo = Omit<Pdf, "content">;
 
-type PdfState = {
-  pdfList: PdfPropertiesInState[];
+type PdfInfoState = {
+  pdfInfoList: PdfInfo[];
 };
 
-const initialState: PdfState = {
-  pdfList: [],
+const initialState: PdfInfoState = {
+  pdfInfoList: [],
 };
-
-const pdfSlice = createSlice({
-  name: "pdf",
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(concat.fulfilled, (state, action) => {
-      state.pdfList = [...state.pdfList, ...action.payload];
-    });
-
-    builder.addCase(remove.fulfilled, (state, action) => {
-      state.pdfList = state.pdfList.filter((i) =>
-        action.payload.includes(i.id)
-      );
-    });
-  },
-});
 
 const concat = createAsyncThunk(
   "pdf/concat",
   async (pdfList: Omit<Pdf, "id">[]) => {
-    const result: PdfPropertiesInState[] = [];
+    const result: PdfInfo[] = [];
     for (const pdf of pdfList) {
       const id = nanoid();
       const item = await PdfStore.setItem(id, { ...pdf, id });
@@ -52,5 +35,22 @@ const remove = createAsyncThunk(
   }
 );
 
+const pdfInfoSlice = createSlice({
+  name: "pdf",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(concat.fulfilled, (state, action) => {
+      state.pdfInfoList = [...state.pdfInfoList, ...action.payload];
+    });
+
+    builder.addCase(remove.fulfilled, (state, action) => {
+      state.pdfInfoList = state.pdfInfoList.filter((i) =>
+        action.payload.includes(i.id)
+      );
+    });
+  },
+});
+
 export { concat, remove };
-export default pdfSlice.reducer;
+export default pdfInfoSlice.reducer;

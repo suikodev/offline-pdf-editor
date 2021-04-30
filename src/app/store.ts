@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import pdfReducer from "../features/pdf/pdfSlice";
+import pdfInfoReducer from "../features/pdfInfo/pdfInfoSlice";
 
 export const store = configureStore({
   reducer: {
-    pdf: pdfReducer,
+    pdfInfo: pdfInfoReducer,
   },
 });
 
