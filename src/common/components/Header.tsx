@@ -18,7 +18,7 @@ const GithubLink: React.FC<GithubLinkProps> = (props) => {
   const { href } = props;
   return (
     <Link aria-label="github link" href={href}>
-      <Icon w={6} h={6} as={IoLogoGithub} />
+      <Icon w={8} h={8} as={IoLogoGithub} />
     </Link>
   );
 };
@@ -36,7 +36,7 @@ export const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = (props) => {
       aria-label="toggle theme"
       onClick={toggleColorMode}
       variant="ghost"
-      fontSize="2xl"
+      fontSize="3xl"
       icon={<Icon as={SwitchIcon} />}
       {...props}
     />
@@ -49,7 +49,7 @@ export const Header: React.FC = () => {
       <Flex justify="start" align="center">
         <Heading size="lg">PDF Editer</Heading>
         <Flex justify="flex-end" flex="1">
-          <HStack spacing={2}>
+          <HStack spacing={2} justify="center">
             <GithubLink href="https://github.com/nacht42/offline-pdf-editor" />
             <ThemeToggleButton />
           </HStack>
