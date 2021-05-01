@@ -1,6 +1,15 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import { Pdf, PdfStore } from "../../common/storage/PdfStore";
 
+// const initPdfInfo = () => {
+//   const result: Omit<Pdf, "content">[] = [];
+//   PdfStore.iterate((pdf) => {
+//     result.push({ id: pdf.id, filename: pdf.filename });
+//   }).then(() => {
+//     return result;
+//   });
+// };
+
 // omit pdf content to avoid putting non-serializable data in state
 type PdfInfo = Omit<Pdf, "content">;
 
@@ -35,6 +44,14 @@ const remove = createAsyncThunk(
   }
 );
 
+const init = createAsyncThunk("pdf/init", async () => {
+  const result: PdfInfo[] = [];
+  await PdfStore.iterate((pdf) => {
+    result.push({ id: pdf.id, filename: pdf.filename });
+  });
+  return result;
+});
+
 const pdfInfoSlice = createSlice({
   name: "pdf",
   initialState,
@@ -49,8 +66,12 @@ const pdfInfoSlice = createSlice({
         action.payload.includes(i.id)
       );
     });
+
+    builder.addCase(init.fulfilled, (state, action) => {
+      state.pdfInfoList = action.payload;
+    });
   },
 });
 
-export { concat, remove };
+export { concat, remove, init };
 export default pdfInfoSlice.reducer;
