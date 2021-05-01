@@ -1,44 +1,55 @@
-import { Container, Flex, Heading, HStack, LinkProps } from "@chakra-ui/layout";
+import { Container, Flex, Heading, HStack } from "@chakra-ui/layout";
 import React from "react";
 import {
-  Link,
   Icon,
   IconButton,
-  IconButtonProps,
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { IoLogoGithub, IoMoon, IoSunny } from "react-icons/io5";
+import { FaFileUpload } from "react-icons/fa";
+import { usePdfPicker } from "../hooks/usePdfPicker";
 
-type GithubLinkProps = {
-  href: string;
-} & Omit<LinkProps, "aria-label" | "onClick" | "icon">;
+const headerButtonStyle = {
+  variant: "ghost",
+  fontSize: "2xl",
+  colorScheme: "gray",
+};
 
-const GithubLink: React.FC<GithubLinkProps> = (props) => {
-  const { href } = props;
+export const GithubButton: React.FC<{ href: string }> = ({ href }) => {
   return (
-    <Link aria-label="github link" href={href}>
-      <Icon w={8} h={8} as={IoLogoGithub} />
-    </Link>
+    <IconButton
+      onClick={() => {
+        window.location.href = href;
+      }}
+      icon={<IoLogoGithub />}
+      aria-label="go to github repo"
+      {...headerButtonStyle}
+    />
   );
 };
 
-type ThemeToggleButtonProps = Omit<
-  IconButtonProps,
-  "aria-label" | "onClick" | "icon"
->;
-
-export const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = (props) => {
+export const ThemeToggleButton: React.FC = () => {
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(IoMoon, IoSunny);
   return (
     <IconButton
-      aria-label="toggle theme"
       onClick={toggleColorMode}
-      variant="ghost"
-      fontSize="3xl"
       icon={<Icon as={SwitchIcon} />}
-      {...props}
+      aria-label="toggle theme"
+      {...headerButtonStyle}
+    />
+  );
+};
+
+const ChoosePdfIconButton: React.FC = () => {
+  const openPdfPicker = usePdfPicker();
+  return (
+    <IconButton
+      onClick={openPdfPicker}
+      icon={<FaFileUpload />}
+      aria-label="choose pdf files"
+      {...headerButtonStyle}
     />
   );
 };
@@ -50,8 +61,9 @@ export const Header: React.FC = () => {
         <Heading size="lg">PDF Editer</Heading>
         <Flex justify="flex-end" flex="1">
           <HStack spacing={2} justify="center">
-            <GithubLink href="https://github.com/nacht42/offline-pdf-editor" />
+            <GithubButton href="https://github.com/nacht42/offline-pdf-editor" />
             <ThemeToggleButton />
+            <ChoosePdfIconButton />
           </HStack>
         </Flex>
       </Flex>
