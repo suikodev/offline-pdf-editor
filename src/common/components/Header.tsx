@@ -5,15 +5,17 @@ import {
   IconButton,
   useColorMode,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { IoLogoGithub, IoMoon, IoSunny } from "react-icons/io5";
 import { FaFileUpload } from "react-icons/fa";
+import { CgMenuMotion } from "react-icons/cg";
 import { usePdfPicker } from "../hooks/usePdfPicker";
+import { PdfManageDrawer } from "./PdfManageDrawer";
+import { useAppSelector } from "../hooks";
 
 const headerButtonStyle = {
-  variant: "ghost",
   fontSize: "2xl",
-  colorScheme: "gray",
 };
 
 export const GithubButton: React.FC<{ href: string }> = ({ href }) => {
@@ -54,7 +56,25 @@ const ChoosePdfIconButton: React.FC = () => {
   );
 };
 
+const OpenPdfManageDrawerButton: React.FC = () => {
+  const { isOpen, onToggle, onClose } = useDisclosure();
+  return (
+    <>
+      <IconButton
+        aria-label="open PDF manage menu"
+        onClick={onToggle}
+        icon={<CgMenuMotion />}
+        {...headerButtonStyle}
+      />
+      <PdfManageDrawer isOpen={isOpen} onClose={onClose} />
+    </>
+  );
+};
+
 export const Header: React.FC = () => {
+  const isPdfExist = useAppSelector(
+    (state) => state.pdfInfo.pdfInfoList.length > 0
+  );
   return (
     <Container as="header" maxWidth="container.xl" paddingY="1rem">
       <Flex justify="start" align="center">
@@ -63,7 +83,8 @@ export const Header: React.FC = () => {
           <HStack spacing={2} justify="center">
             <GithubButton href="https://github.com/nacht42/offline-pdf-editor" />
             <ThemeToggleButton />
-            <ChoosePdfIconButton />
+            {isPdfExist && <OpenPdfManageDrawerButton />}
+            {!isPdfExist && <ChoosePdfIconButton />}
           </HStack>
         </Flex>
       </Flex>
