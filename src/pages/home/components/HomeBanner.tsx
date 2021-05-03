@@ -23,7 +23,7 @@ export const HomeBanner: React.FC = () => {
         <ChoosePdfButton
           onPdfStoreSuccess={handlePdfFileStoreSuccess}
           size="lg"
-          colorScheme="brand"
+          colorScheme="blue"
           marginY="2rem"
         >
           choose PDF(s)
