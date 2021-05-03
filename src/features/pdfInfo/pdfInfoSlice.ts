@@ -1,15 +1,6 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import { Pdf, PdfStore } from "../../common/storage/PdfStore";
 
-// const initPdfInfo = () => {
-//   const result: Omit<Pdf, "content">[] = [];
-//   PdfStore.iterate((pdf) => {
-//     result.push({ id: pdf.id, filename: pdf.filename });
-//   }).then(() => {
-//     return result;
-//   });
-// };
-
 // omit pdf content to avoid putting non-serializable data in state
 export type PdfInfo = Omit<Pdf, "content">;
 
