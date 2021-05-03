@@ -11,7 +11,7 @@ import { Pdf, PdfStore } from "../../common/storage/PdfStore";
 // };
 
 // omit pdf content to avoid putting non-serializable data in state
-type PdfInfo = Omit<Pdf, "content">;
+export type PdfInfo = Omit<Pdf, "content">;
 
 type PdfInfoState = {
   pdfInfoList: PdfInfo[];
@@ -62,8 +62,8 @@ const pdfInfoSlice = createSlice({
     });
 
     builder.addCase(remove.fulfilled, (state, action) => {
-      state.pdfInfoList = state.pdfInfoList.filter((i) =>
-        action.payload.includes(i.id)
+      state.pdfInfoList = state.pdfInfoList.filter(
+        (i) => !action.payload.includes(i.id)
       );
     });
 
