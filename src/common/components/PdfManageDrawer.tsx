@@ -13,12 +13,14 @@ import {
   IconButton,
   HStack,
   Tooltip,
+  Button,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { IoTrash } from "react-icons/io5";
 import { RootState } from "../../app/store";
 import { PdfInfo, remove } from "../../features/pdfInfo/pdfInfoSlice";
 import { useAppDispatch, useAppSelector } from "../hooks";
+import { usePdfPicker } from "../hooks/usePdfPicker";
 
 const selectPdfById = (state: RootState, id: string) =>
   state.pdfInfo.pdfInfoList.find((i) => i.id === id);
@@ -31,7 +33,7 @@ const PdfManageListItem: React.FC<{ id: string }> = (props) => {
   const dispatch = useAppDispatch();
   const removePdf = () => dispatch(remove([pdfId]));
   return (
-    <ListItem>
+    <ListItem paddingY="4px">
       <Flex justifyContent="space-between" align="center">
         <Text fontSize="xl" isTruncated>
           {filename}
@@ -57,6 +59,26 @@ const PdfManageListItem: React.FC<{ id: string }> = (props) => {
   );
 };
 
+const ChoosePdfButton = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const openPdfPicker = usePdfPicker(() => setIsLoading(false));
+  const handleClick = () => {
+    setIsLoading(true);
+    openPdfPicker?.();
+  };
+  return (
+    <Button
+      onClick={handleClick}
+      isLoading={isLoading}
+      isFullWidth
+      size="sm"
+      colorScheme="blue"
+    >
+      choose more PDF
+    </Button>
+  );
+};
+
 export const PdfManageDrawer: React.FC<PdfManageDrawerProps> = (props) => {
   const pdfIdList = useAppSelector((state) =>
     state.pdfInfo.pdfInfoList.map((i) => i.id)
@@ -67,7 +89,7 @@ export const PdfManageDrawer: React.FC<PdfManageDrawerProps> = (props) => {
       <DrawerOverlay>
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>All PDF</DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px">All PDF</DrawerHeader>
           <DrawerBody>
             <Stack>
               <List>
@@ -76,6 +98,7 @@ export const PdfManageDrawer: React.FC<PdfManageDrawerProps> = (props) => {
                 ))}
               </List>
             </Stack>
+            <ChoosePdfButton />
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>
