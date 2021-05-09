@@ -45,7 +45,7 @@ export const ThemeToggleButton: React.FC = () => {
 };
 
 const ChoosePdfIconButton: React.FC = () => {
-  const openPdfPicker = usePdfPicker();
+  const { openPdfPicker } = usePdfPicker();
   return (
     <IconButton
       onClick={openPdfPicker}

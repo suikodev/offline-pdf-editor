@@ -9,9 +9,12 @@ export const usePdfPicker = (
 ) => {
   const dispatch = useAppDispatch();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [inputElement, setInputElement] = useState<HTMLInputElement>();
 
   const onFilesSelected = async (e: Event) => {
+    setIsLoading(true);
     const files = ((e as unknown) as FormEvent<HTMLInputElement>).currentTarget
       .files;
     if (!files) return;
@@ -36,6 +39,8 @@ export const usePdfPicker = (
       });
     } catch (e) {
       handlePdfStoreError?.(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -47,5 +52,5 @@ export const usePdfPicker = (
     input.onchange = onFilesSelected;
     setInputElement(input);
   }, []);
-  return inputElement?.click.bind(inputElement);
+  return { openPdfPicker: inputElement?.click.bind(inputElement), isLoading };
 };

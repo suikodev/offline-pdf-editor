@@ -15,7 +15,7 @@ import {
   Tooltip,
   Button,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { IoTrash } from "react-icons/io5";
 import { RootState } from "../../app/store";
 import { PdfInfo, remove } from "../../features/pdfInfo/pdfInfoSlice";
@@ -60,10 +60,8 @@ const PdfManageListItem: React.FC<{ id: string }> = (props) => {
 };
 
 const ChoosePdfButton = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const openPdfPicker = usePdfPicker(() => setIsLoading(false));
+  const { openPdfPicker, isLoading } = usePdfPicker();
   const handleClick = () => {
-    setIsLoading(true);
     openPdfPicker?.();
   };
   return (

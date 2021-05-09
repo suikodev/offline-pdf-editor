@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ButtonProps } from "@chakra-ui/button";
 import { usePdfPicker } from "../hooks/usePdfPicker";
 import { Button } from "@chakra-ui/react";
@@ -7,14 +7,12 @@ import { Button } from "@chakra-ui/react";
  * click the button to choose pdf files, then files will store in browser
  */
 export const ChoosePdfButton: React.FC<ChoosePdfButtonProps> = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
   const {
     onPdfStoreError,
     onPdfStoreSuccess,
     ...selectFileButtonProps
   } = props;
-  const openPdfPicker = usePdfPicker(() => {
-    setIsLoading(false);
+  const { openPdfPicker, isLoading } = usePdfPicker(() => {
     onPdfStoreSuccess?.();
   }, onPdfStoreError);
   return (
@@ -23,7 +21,6 @@ export const ChoosePdfButton: React.FC<ChoosePdfButtonProps> = (props) => {
       accept="application/pdf"
       multiple
       onClick={() => {
-        setIsLoading(true);
         openPdfPicker?.();
       }}
       {...selectFileButtonProps}
