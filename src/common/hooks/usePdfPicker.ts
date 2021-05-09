@@ -8,6 +8,9 @@ export const usePdfPicker = (
   handlePdfStoreError?: (e: Error) => void
 ) => {
   const dispatch = useAppDispatch();
+
+  const [inputElement, setInputElement] = useState<HTMLInputElement>();
+
   const onFilesSelected = async (e: Event) => {
     const files = ((e as unknown) as FormEvent<HTMLInputElement>).currentTarget
       .files;
@@ -20,14 +23,21 @@ export const usePdfPicker = (
           content: new Uint8Array(await file.arrayBuffer()),
         });
       }
+
       dispatch(concat(pdfInfoList));
+
       handlePdfStoreSuccess?.();
+
+      setInputElement((element) => {
+        if (element) {
+          element.value = "";
+        }
+        return element;
+      });
     } catch (e) {
       handlePdfStoreError?.(e);
     }
   };
-
-  const [inputElement, setInputElement] = useState<HTMLInputElement>();
 
   useEffect(() => {
     const input = document.createElement("input");
