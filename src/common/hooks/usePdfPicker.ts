@@ -29,18 +29,18 @@ export const usePdfPicker = (
 
       dispatch(concat(pdfInfoList));
 
-      handlePdfStoreSuccess?.();
-
       setInputElement((element) => {
         if (element) {
           element.value = "";
         }
         return element;
       });
-    } catch (e) {
-      handlePdfStoreError?.(e);
-    } finally {
+
       setIsLoading(false);
+      handlePdfStoreSuccess?.();
+    } catch (e) {
+      setIsLoading(false);
+      handlePdfStoreError?.(e);
     }
   };
 
