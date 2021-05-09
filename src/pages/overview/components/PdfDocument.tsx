@@ -1,5 +1,5 @@
 import { Flex, Grid, Heading } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 import { Pdf, PdfStore } from "../../../common/storage/PdfStore";
 
@@ -10,6 +10,9 @@ export const PdfDocument: React.FC<{ pdfId: string }> = (props) => {
       pdf && setPdfFile(pdf);
     });
   }, []);
+
+  const file = useMemo(() => ({ data: pdfFile?.content }), [pdfFile]);
+
   const [numPages, setNumPages] = useState(0);
   return (
     <>
@@ -19,7 +22,7 @@ export const PdfDocument: React.FC<{ pdfId: string }> = (props) => {
             cMapUrl: "cmaps/",
             cMapPacked: true,
           }}
-          file={{ data: pdfFile.content }}
+          file={file}
           onLoadSuccess={({ numPages }) => {
             setNumPages(numPages);
           }}
