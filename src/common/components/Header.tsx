@@ -3,6 +3,7 @@ import React from "react";
 import {
   Icon,
   IconButton,
+  Tooltip,
   useColorMode,
   useColorModeValue,
   useDisclosure,
@@ -18,41 +19,47 @@ const headerButtonStyle = {
   fontSize: "2xl",
 };
 
-export const GithubButton: React.FC<{ href: string }> = ({ href }) => {
+const GithubButton: React.FC<{ href: string }> = ({ href }) => {
   return (
-    <IconButton
-      onClick={() => {
-        window.location.href = href;
-      }}
-      icon={<IoLogoGithub />}
-      aria-label="go to github repo"
-      {...headerButtonStyle}
-    />
+    <Tooltip label="go to github repo" hasArrow fontSize="md" placement="auto">
+      <IconButton
+        onClick={() => {
+          window.location.href = href;
+        }}
+        icon={<IoLogoGithub />}
+        aria-label="go to github repo"
+        {...headerButtonStyle}
+      />
+    </Tooltip>
   );
 };
 
-export const ThemeToggleButton: React.FC = () => {
+const ThemeToggleButton: React.FC = () => {
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(IoMoon, IoSunny);
   return (
-    <IconButton
-      onClick={toggleColorMode}
-      icon={<Icon as={SwitchIcon} />}
-      aria-label="toggle theme"
-      {...headerButtonStyle}
-    />
+    <Tooltip label="toggle theme" hasArrow fontSize="md" placement="auto">
+      <IconButton
+        onClick={toggleColorMode}
+        icon={<Icon as={SwitchIcon} />}
+        aria-label="toggle theme"
+        {...headerButtonStyle}
+      />
+    </Tooltip>
   );
 };
 
 const ChoosePdfIconButton: React.FC = () => {
   const { openPdfPicker } = usePdfPicker();
   return (
-    <IconButton
-      onClick={openPdfPicker}
-      icon={<FaFileUpload />}
-      aria-label="choose pdf files"
-      {...headerButtonStyle}
-    />
+    <Tooltip label="choose pdf files" hasArrow fontSize="md" placement="auto">
+      <IconButton
+        onClick={openPdfPicker}
+        icon={<FaFileUpload />}
+        aria-label="choose pdf files"
+        {...headerButtonStyle}
+      />
+    </Tooltip>
   );
 };
 
@@ -60,12 +67,19 @@ const OpenPdfManageDrawerButton: React.FC = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   return (
     <>
-      <IconButton
-        aria-label="open PDF manage menu"
-        onClick={onToggle}
-        icon={<CgMenuMotion />}
-        {...headerButtonStyle}
-      />
+      <Tooltip
+        label="open PDF mange menu"
+        hasArrow
+        fontSize="md"
+        placement="auto"
+      >
+        <IconButton
+          aria-label="open PDF manage menu"
+          onClick={onToggle}
+          icon={<CgMenuMotion />}
+          {...headerButtonStyle}
+        />
+      </Tooltip>
       <PdfManageDrawer isOpen={isOpen} onClose={onClose} />
     </>
   );
