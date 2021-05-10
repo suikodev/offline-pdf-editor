@@ -1,3 +1,4 @@
+import { useToast } from "@chakra-ui/react";
 import { FormEvent, useEffect, useState } from "react";
 import { concat } from "../../features/pdfInfo/pdfInfoSlice";
 import { Pdf } from "../storage/PdfStore";
@@ -10,6 +11,8 @@ export const usePdfPicker = (
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const toast = useToast();
 
   const [inputElement, setInputElement] = useState<HTMLInputElement>();
 
@@ -37,6 +40,15 @@ export const usePdfPicker = (
       });
 
       setIsLoading(false);
+
+      toast({
+        title: "PDF stored",
+        description: "your PDF stored successfully",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+
       handlePdfStoreSuccess?.();
     } catch (e) {
       setIsLoading(false);
