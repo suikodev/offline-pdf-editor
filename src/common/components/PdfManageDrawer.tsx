@@ -35,7 +35,7 @@ const PdfManageListItem: React.FC<{ id: string }> = (props) => {
   return (
     <ListItem paddingY="4px">
       <Flex justifyContent="space-between" align="center">
-        <Text fontSize="xl" isTruncated>
+        <Text fontSize="lg" isTruncated>
           {filename}
         </Text>
         <HStack>
