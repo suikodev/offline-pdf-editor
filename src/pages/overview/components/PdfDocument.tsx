@@ -1,9 +1,9 @@
 import {
   Box,
   Flex,
-  Grid,
   Heading,
   HTMLChakraProps,
+  SimpleGrid,
   Text,
 } from "@chakra-ui/react";
 import { HTMLMotionProps, motion } from "framer-motion";
@@ -93,7 +93,7 @@ export const PdfDocument: React.FC<{ pdfId: string }> = (props) => {
               {pdfFile.filename}
             </Heading>
           </Flex>
-          <Grid templateColumns="repeat(5, 1fr)" gap={8} ref={constantsRef}>
+          <SimpleGrid columns={5} spacingY={8} ref={constantsRef}>
             {Array.from(new Array(numPages), (_, index) => (
               <DraggablePage
                 width={200}
@@ -102,7 +102,7 @@ export const PdfDocument: React.FC<{ pdfId: string }> = (props) => {
                 pageNumber={index + 1}
               />
             ))}
-          </Grid>
+          </SimpleGrid>
         </Document>
       )}
     </>
