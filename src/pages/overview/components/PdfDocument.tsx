@@ -7,10 +7,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { HTMLMotionProps, motion } from "framer-motion";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { PageProps } from "react-pdf";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
-import { Pdf, PdfStore } from "../../../common/storage/PdfStore";
+import { usePdfFileById } from "../../../common/hooks/usePdfFileById";
 
 type Merge<P, T> = Omit<P, keyof T> & T;
 type MotionBoxProps = Merge<HTMLChakraProps<"div">, HTMLMotionProps<"div">>;
@@ -40,7 +40,7 @@ const DraggablePage: React.FC<DraggablePageProps> = (props) => {
       {isHovering && (
         <Text
           width="full"
-          background="blackAlpha.800"
+          background="blue.700"
           color="white"
           position="absolute"
           left="50%"
@@ -65,14 +65,9 @@ const DraggablePage: React.FC<DraggablePageProps> = (props) => {
 export const PdfDocument: React.FC<{ pdfId: string }> = (props) => {
   const constantsRef = useRef(null);
 
-  const [pdfFile, setPdfFile] = useState<Pdf>();
-  useEffect(() => {
-    PdfStore.getItem(props.pdfId).then((pdf) => {
-      pdf && setPdfFile(pdf);
-    });
-  }, []);
+  const pdfFile = usePdfFileById(props.pdfId, []);
 
-  const file = useMemo(() => ({ data: pdfFile?.content }), [pdfFile]);
+  const memorizedFile = useMemo(() => ({ data: pdfFile?.content }), [pdfFile]);
 
   const [numPages, setNumPages] = useState(0);
   return (
@@ -83,7 +78,7 @@ export const PdfDocument: React.FC<{ pdfId: string }> = (props) => {
             cMapUrl: "cmaps/",
             cMapPacked: true,
           }}
-          file={file}
+          file={memorizedFile}
           onLoadSuccess={({ numPages }) => {
             setNumPages(numPages);
           }}
