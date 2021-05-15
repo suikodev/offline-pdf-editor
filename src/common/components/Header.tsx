@@ -1,6 +1,6 @@
 import { Container, Flex, Heading, HStack } from "@chakra-ui/layout";
-import React from "react";
 import {
+  Button,
   Icon,
   IconButton,
   Tooltip,
@@ -8,12 +8,20 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { IoLogoGithub, IoMoon, IoSunny } from "react-icons/io5";
-import { FaFileUpload } from "react-icons/fa";
+import React from "react";
 import { CgMenuMotion } from "react-icons/cg";
+import { FaFileUpload } from "react-icons/fa";
+import {
+  IoChevronDownOutline,
+  IoChevronUpOutline,
+  IoLogoGithub,
+  IoMoon,
+  IoSunny,
+} from "react-icons/io5";
+import { useAppSelector } from "../hooks";
 import { usePdfPicker } from "../hooks/usePdfPicker";
 import { PdfManageDrawer } from "./PdfManageDrawer";
-import { useAppSelector } from "../hooks";
+import { ToolMenuDrawer } from "./ToolMenuDrawer";
 
 const headerButtonStyle = {
   fontSize: "2xl",
@@ -89,19 +97,38 @@ export const Header: React.FC = () => {
   const isPdfExist = useAppSelector(
     (state) => state.pdfInfo.pdfInfoList.length > 0
   );
+
+  const {
+    isOpen: isToolMenuOpen,
+    onToggle: onToggleToolMenu,
+    onClose: onCloseToolMenu,
+  } = useDisclosure();
   return (
-    <Container as="header" maxWidth="container.xl" paddingY="1rem">
-      <Flex justify="start" align="center">
-        <Heading size="lg">PDF Editer</Heading>
-        <Flex justify="flex-end" flex="1">
-          <HStack spacing={2} justify="center">
-            <GithubButton href="https://github.com/nacht42/offline-pdf-editor" />
-            <ThemeToggleButton />
-            {isPdfExist && <OpenPdfManageDrawerButton />}
-            {!isPdfExist && <ChoosePdfIconButton />}
-          </HStack>
+    <>
+      <Container as="header" maxWidth="container.xl" paddingY="1rem">
+        <Flex justify="start" align="center">
+          <Heading size="lg">PDF Editer</Heading>
+          <Button
+            marginLeft="1rem"
+            variant="guest"
+            rightIcon={
+              isToolMenuOpen ? <IoChevronUpOutline /> : <IoChevronDownOutline />
+            }
+            onClick={onToggleToolMenu}
+          >
+            All Tools
+          </Button>
+          <Flex justify="flex-end" flex="1">
+            <HStack spacing={2} justify="center">
+              <GithubButton href="https://github.com/nacht42/offline-pdf-editor" />
+              <ThemeToggleButton />
+              {isPdfExist && <OpenPdfManageDrawerButton />}
+              {!isPdfExist && <ChoosePdfIconButton />}
+            </HStack>
+          </Flex>
         </Flex>
-      </Flex>
-    </Container>
+      </Container>
+      <ToolMenuDrawer isOpen={isToolMenuOpen} onClose={onCloseToolMenu} />
+    </>
   );
 };
