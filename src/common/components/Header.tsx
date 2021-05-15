@@ -18,10 +18,12 @@ import {
   IoMoon,
   IoSunny,
 } from "react-icons/io5";
+import { useHistory } from "react-router";
 import { useAppSelector } from "../hooks";
 import { usePdfPicker } from "../hooks/usePdfPicker";
 import { PdfManageDrawer } from "./PdfManageDrawer";
 import { ToolMenuDrawer } from "./ToolMenuDrawer";
+import routes from "../../constants/routes.json";
 
 const headerButtonStyle = {
   fontSize: "2xl",
@@ -94,6 +96,8 @@ const OpenPdfManageDrawerButton: React.FC = () => {
 };
 
 export const Header: React.FC = () => {
+  const history = useHistory();
+
   const isPdfExist = useAppSelector(
     (state) => state.pdfInfo.pdfInfoList.length > 0
   );
@@ -117,6 +121,9 @@ export const Header: React.FC = () => {
             onClick={onToggleToolMenu}
           >
             All Tools
+          </Button>
+          <Button onClick={() => history.push(routes.MERGE)} variant="guest">
+            Merge
           </Button>
           <Flex justify="flex-end" flex="1">
             <HStack spacing={2} justify="center">
