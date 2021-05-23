@@ -67,7 +67,7 @@ export const ToolMenuDrawer: React.FC<ToolMenuDrawerProps> = (props) => {
                   <FeatureContent
                     features={[
                       { name: "Merge PDF", link: "/merge" },
-                      { name: "Split PDF", link: "/Split" },
+                      { name: "Split PDF", link: "/split" },
                     ]}
                   />
                 </FeatureColumn>
