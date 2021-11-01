@@ -1,27 +1,35 @@
 import { Container, Flex, Heading, HStack } from "@chakra-ui/layout";
-import React from "react";
 import {
+  ButtonProps,
   Icon,
   IconButton,
   Tooltip,
+  TooltipProps,
   useColorMode,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { IoLogoGithub, IoMoon, IoSunny } from "react-icons/io5";
-import { FaFileUpload } from "react-icons/fa";
+import React from "react";
 import { CgMenuMotion } from "react-icons/cg";
+import { FaFileUpload } from "react-icons/fa";
+import { IoLogoGithub, IoMoon, IoSunny } from "react-icons/io5";
+import { useAppSelector } from "../hooks";
 import { usePdfPicker } from "../hooks/usePdfPicker";
 import { PdfManageDrawer } from "./PdfManageDrawer";
-import { useAppSelector } from "../hooks";
 
-const headerButtonStyle = {
+const headerButtonStyle: Partial<ButtonProps> = {
   fontSize: "2xl",
+};
+
+const tooltipStyle: Partial<TooltipProps> = {
+  hasArrow: true,
+  fontSize: "md",
+  placement: "auto",
 };
 
 const GithubButton: React.FC<{ href: string }> = ({ href }) => {
   return (
-    <Tooltip label="go to github repo" hasArrow fontSize="md" placement="auto">
+    <Tooltip label="go to github repo" {...tooltipStyle}>
       <IconButton
         onClick={() => {
           window.location.href = href;
@@ -38,7 +46,7 @@ const ThemeToggleButton: React.FC = () => {
   const { toggleColorMode } = useColorMode();
   const SwitchIcon = useColorModeValue(IoMoon, IoSunny);
   return (
-    <Tooltip label="toggle theme" hasArrow fontSize="md" placement="auto">
+    <Tooltip label="toggle theme" {...tooltipStyle}>
       <IconButton
         onClick={toggleColorMode}
         icon={<Icon as={SwitchIcon} />}
@@ -52,7 +60,7 @@ const ThemeToggleButton: React.FC = () => {
 const ChoosePdfIconButton: React.FC = () => {
   const { openPdfPicker } = usePdfPicker();
   return (
-    <Tooltip label="choose pdf files" hasArrow fontSize="md" placement="auto">
+    <Tooltip label="choose pdf files" {...tooltipStyle}>
       <IconButton
         onClick={openPdfPicker}
         icon={<FaFileUpload />}
