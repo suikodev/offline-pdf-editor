@@ -6,6 +6,7 @@ import { Header } from "../common/components/Header";
 import { Overview } from "../pages/overview/Overview";
 import { useAppDispatch } from "../common/hooks";
 import { init as initPdfInfoState } from "../features/pdfInfo/pdfInfoSlice";
+import { Store } from "../pages/store";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -19,6 +20,9 @@ function App() {
         <Switch>
           <Route path={routes.OVERVIEW}>
             <Overview />
+          </Route>
+          <Route path={routes.STORE}>
+            <Store />
           </Route>
           <Route path={routes.HOME}>
             <Home />
