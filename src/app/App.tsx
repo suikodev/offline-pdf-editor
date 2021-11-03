@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import routes from "../constants/routes.json";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Home } from "../pages/home";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Header } from "../common/components/Header";
-import { Overview } from "../pages/overview/Overview";
 import { useAppDispatch } from "../common/hooks";
+import routes from "../constants/routes.json";
 import { init as initPdfInfoState } from "../features/pdfInfo/pdfInfoSlice";
+import { Home } from "../pages/home";
+import { Overview } from "../pages/overview";
 import { Store } from "../pages/store";
 
 function App() {
