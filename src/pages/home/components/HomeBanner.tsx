@@ -3,8 +3,10 @@ import React from "react";
 import { useHistory } from "react-router";
 import routes from "../../../constants/routes.json";
 import { ChoosePdfButton } from "../../../common/components/ChoosePdfButton";
+import { useTranslation } from "react-i18next";
 
 export const HomeBanner: React.FC = () => {
+  const { t } = useTranslation();
   const history = useHistory();
   const handlePdfFileStoreSuccess = () => {
     history.replace(routes.OVERVIEW);
@@ -13,12 +15,10 @@ export const HomeBanner: React.FC = () => {
     <Container as="section" maxWidth="container.lg">
       <Flex direction="column" align="center" paddingY={["5rem", "10rem"]}>
         <Heading textAlign="center" size="4xl">
-          Edit your PDF all OFFLINE
+          {t("home.banner.title")}
         </Heading>
         <Text fontSize="xl" color="gray.600" textAlign="center" marginY="1rem">
-          This is a PDF editor which runs in your browser totally offline after
-          all page have loaded. your PDFs and your personal infomation won&#39;t
-          send to any server FOREVER.
+          {t("home.banner.description")}
         </Text>
         <ChoosePdfButton
           onPdfStoreSuccess={handlePdfFileStoreSuccess}
@@ -26,7 +26,7 @@ export const HomeBanner: React.FC = () => {
           colorScheme="blue"
           marginY="2rem"
         >
-          choose PDF(s)
+          {t("home.banner.choosePdfButtonText")}
         </ChoosePdfButton>
       </Flex>
     </Container>

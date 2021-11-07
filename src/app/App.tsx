@@ -7,6 +7,7 @@ import { init as initPdfInfoState } from "../features/pdfInfo/pdfInfoSlice";
 import { Home } from "../pages/home";
 import { Overview } from "../pages/overview";
 import { Store } from "../pages/store";
+import "../i18n";
 
 function App() {
   const dispatch = useAppDispatch();
