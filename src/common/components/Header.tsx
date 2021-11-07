@@ -34,14 +34,14 @@ const tooltipStyle: Partial<TooltipProps> = {
 };
 
 const LanguageButton: React.FC = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   return (
     <Menu>
-      <Tooltip label="change language" {...tooltipStyle}>
+      <Tooltip label={t("header.changeLanguage")} {...tooltipStyle}>
         <MenuButton
           as={IconButton}
           icon={<IoLanguage />}
-          aria-label="change language"
+          aria-label={t("header.changeLanguage")}
           {...headerButtonStyle}
         />
       </Tooltip>
@@ -60,14 +60,15 @@ const LanguageButton: React.FC = () => {
 };
 
 const GithubButton: React.FC<{ href: string }> = ({ href }) => {
+  const { t } = useTranslation();
   return (
-    <Tooltip label="go to github repo" {...tooltipStyle}>
+    <Tooltip label={t("header.goToGithubRepo")} {...tooltipStyle}>
       <IconButton
         onClick={() => {
           window.location.href = href;
         }}
         icon={<IoLogoGithub />}
-        aria-label="go to github repo"
+        aria-label={t("header.goToGithubRepo")}
         {...headerButtonStyle}
       />
     </Tooltip>
@@ -76,13 +77,14 @@ const GithubButton: React.FC<{ href: string }> = ({ href }) => {
 
 const ThemeToggleButton: React.FC = () => {
   const { toggleColorMode } = useColorMode();
+  const { t } = useTranslation();
   const SwitchIcon = useColorModeValue(IoMoon, IoSunny);
   return (
-    <Tooltip label="toggle theme" {...tooltipStyle}>
+    <Tooltip label={t("header.toggleTheme")} {...tooltipStyle}>
       <IconButton
         onClick={toggleColorMode}
         icon={<Icon as={SwitchIcon} />}
-        aria-label="toggle theme"
+        aria-label={t("header.toggleTheme")}
         {...headerButtonStyle}
       />
     </Tooltip>
@@ -91,12 +93,13 @@ const ThemeToggleButton: React.FC = () => {
 
 const ChoosePdfIconButton: React.FC = () => {
   const { openPdfPicker } = usePdfPicker();
+  const { t } = useTranslation();
   return (
-    <Tooltip label="choose pdf files" {...tooltipStyle}>
+    <Tooltip label={t("header.choosePDF")} {...tooltipStyle}>
       <IconButton
         onClick={openPdfPicker}
         icon={<FaFileUpload />}
-        aria-label="choose pdf files"
+        aria-label={t("header.choosePDF")}
         {...headerButtonStyle}
       />
     </Tooltip>
@@ -105,16 +108,17 @@ const ChoosePdfIconButton: React.FC = () => {
 
 const OpenPdfManageDrawerButton: React.FC = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
+  const { t } = useTranslation();
   return (
     <>
       <Tooltip
-        label="open PDF manage menu"
+        label={t("header.openPDFmanegeMenu")}
         hasArrow
         fontSize="md"
         placement="auto"
       >
         <IconButton
-          aria-label="open PDF manage menu"
+          aria-label={t("header.openPDFmanegeMenu")}
           onClick={onToggle}
           icon={<CgMenuMotion />}
           {...headerButtonStyle}
@@ -132,7 +136,7 @@ export const Header: React.FC = () => {
   return (
     <Container as="header" maxWidth="container.xl" paddingY="1rem">
       <Flex justify="start" align="center">
-        <Heading size="lg">PDF Editer</Heading>
+        <Heading size="lg">Offline PDF Editer</Heading>
         <Flex justify="flex-end" flex="1">
           <HStack spacing={2} justify="center">
             <LanguageButton />
