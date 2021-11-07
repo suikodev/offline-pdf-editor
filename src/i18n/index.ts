@@ -18,7 +18,7 @@ i18n
   .init({
     detection: DETECTION_OPTIONS,
     debug: true,
-    fallbackLng: "zh",
+    fallbackLng: "en",
     interpolation: {
       escapeValue: false,
     },
