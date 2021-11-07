@@ -1,0 +1,18 @@
+{
+  "translation": {
+    "header": {
+      "changeLanguage": "Change Language",
+      "goToGithubRepo": "Go to Github Repo",
+      "toggleTheme": "Toggle Theme",
+      "openPDFmanegeMenu": "Open PDF manege Menu",
+      "choosePDF": "Choose PDF"
+    },
+    "home": {
+      "banner": {
+        "title": "Edit your PDF all offline in browser ",
+        "description": "This is a PDF editor which runs in your browser totally offline after all page have loaded. your PDFs and your personal infomation won't send to any server FOREVER.",
+        "choosePdfButtonText": "Choose PDF"
+      }
+    }
+  }
+}

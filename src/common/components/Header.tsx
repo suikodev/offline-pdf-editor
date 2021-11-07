@@ -3,6 +3,10 @@ import {
   ButtonProps,
   Icon,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Tooltip,
   TooltipProps,
   useColorMode,
@@ -12,10 +16,12 @@ import {
 import React from "react";
 import { CgMenuMotion } from "react-icons/cg";
 import { FaFileUpload } from "react-icons/fa";
-import { IoLogoGithub, IoMoon, IoSunny } from "react-icons/io5";
+import { IoLanguage, IoLogoGithub, IoMoon, IoSunny } from "react-icons/io5";
 import { useAppSelector } from "../hooks";
 import { usePdfPicker } from "../hooks/usePdfPicker";
 import { PdfManageDrawer } from "./PdfManageDrawer";
+import { lngs } from "../../i18n";
+import { useTranslation } from "react-i18next";
 
 const headerButtonStyle: Partial<ButtonProps> = {
   fontSize: "2xl",
@@ -27,15 +33,42 @@ const tooltipStyle: Partial<TooltipProps> = {
   placement: "auto",
 };
 
-const GithubButton: React.FC<{ href: string }> = ({ href }) => {
+const LanguageButton: React.FC = () => {
+  const { i18n, t } = useTranslation();
   return (
-    <Tooltip label="go to github repo" {...tooltipStyle}>
+    <Menu>
+      <Tooltip label={t("header.changeLanguage")} {...tooltipStyle}>
+        <MenuButton
+          as={IconButton}
+          icon={<IoLanguage />}
+          aria-label={t("header.changeLanguage")}
+          {...headerButtonStyle}
+        />
+      </Tooltip>
+      <MenuList>
+        {lngs.map((lng) => (
+          <MenuItem
+            key={lng.code}
+            onClick={() => i18n.changeLanguage(lng.code)}
+          >
+            {lng.name}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Menu>
+  );
+};
+
+const GithubButton: React.FC<{ href: string }> = ({ href }) => {
+  const { t } = useTranslation();
+  return (
+    <Tooltip label={t("header.goToGithubRepo")} {...tooltipStyle}>
       <IconButton
         onClick={() => {
           window.location.href = href;
         }}
         icon={<IoLogoGithub />}
-        aria-label="go to github repo"
+        aria-label={t("header.goToGithubRepo")}
         {...headerButtonStyle}
       />
     </Tooltip>
@@ -44,13 +77,14 @@ const GithubButton: React.FC<{ href: string }> = ({ href }) => {
 
 const ThemeToggleButton: React.FC = () => {
   const { toggleColorMode } = useColorMode();
+  const { t } = useTranslation();
   const SwitchIcon = useColorModeValue(IoMoon, IoSunny);
   return (
-    <Tooltip label="toggle theme" {...tooltipStyle}>
+    <Tooltip label={t("header.toggleTheme")} {...tooltipStyle}>
       <IconButton
         onClick={toggleColorMode}
         icon={<Icon as={SwitchIcon} />}
-        aria-label="toggle theme"
+        aria-label={t("header.toggleTheme")}
         {...headerButtonStyle}
       />
     </Tooltip>
@@ -59,12 +93,13 @@ const ThemeToggleButton: React.FC = () => {
 
 const ChoosePdfIconButton: React.FC = () => {
   const { openPdfPicker } = usePdfPicker();
+  const { t } = useTranslation();
   return (
-    <Tooltip label="choose pdf files" {...tooltipStyle}>
+    <Tooltip label={t("header.choosePDF")} {...tooltipStyle}>
       <IconButton
         onClick={openPdfPicker}
         icon={<FaFileUpload />}
-        aria-label="choose pdf files"
+        aria-label={t("header.choosePDF")}
         {...headerButtonStyle}
       />
     </Tooltip>
@@ -73,16 +108,17 @@ const ChoosePdfIconButton: React.FC = () => {
 
 const OpenPdfManageDrawerButton: React.FC = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
+  const { t } = useTranslation();
   return (
     <>
       <Tooltip
-        label="open PDF mange menu"
+        label={t("header.openPDFmanegeMenu")}
         hasArrow
         fontSize="md"
         placement="auto"
       >
         <IconButton
-          aria-label="open PDF manage menu"
+          aria-label={t("header.openPDFmanegeMenu")}
           onClick={onToggle}
           icon={<CgMenuMotion />}
           {...headerButtonStyle}
@@ -100,9 +136,10 @@ export const Header: React.FC = () => {
   return (
     <Container as="header" maxWidth="container.xl" paddingY="1rem">
       <Flex justify="start" align="center">
-        <Heading size="lg">PDF Editer</Heading>
+        <Heading size="lg">Offline PDF Editer</Heading>
         <Flex justify="flex-end" flex="1">
           <HStack spacing={2} justify="center">
+            <LanguageButton />
             <GithubButton href="https://github.com/nacht42/offline-pdf-editor" />
             <ThemeToggleButton />
             {isPdfExist && <OpenPdfManageDrawerButton />}
