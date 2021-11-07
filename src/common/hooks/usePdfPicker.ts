@@ -52,7 +52,9 @@ export const usePdfPicker = (
       handlePdfStoreSuccess?.();
     } catch (e) {
       setIsLoading(false);
-      handlePdfStoreError?.(e);
+      if (e instanceof Error) {
+        handlePdfStoreError?.(e);
+      }
     }
   };
 
