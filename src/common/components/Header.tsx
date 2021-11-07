@@ -3,6 +3,10 @@ import {
   ButtonProps,
   Icon,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Tooltip,
   TooltipProps,
   useColorMode,
@@ -12,10 +16,12 @@ import {
 import React from "react";
 import { CgMenuMotion } from "react-icons/cg";
 import { FaFileUpload } from "react-icons/fa";
-import { IoLogoGithub, IoMoon, IoSunny } from "react-icons/io5";
+import { IoLanguage, IoLogoGithub, IoMoon, IoSunny } from "react-icons/io5";
 import { useAppSelector } from "../hooks";
 import { usePdfPicker } from "../hooks/usePdfPicker";
 import { PdfManageDrawer } from "./PdfManageDrawer";
+import { lngs } from "../../i18n";
+import { useTranslation } from "react-i18next";
 
 const headerButtonStyle: Partial<ButtonProps> = {
   fontSize: "2xl",
@@ -25,6 +31,32 @@ const tooltipStyle: Partial<TooltipProps> = {
   hasArrow: true,
   fontSize: "md",
   placement: "auto",
+};
+
+const LanguageButton: React.FC = () => {
+  const { i18n } = useTranslation();
+  return (
+    <Menu>
+      <Tooltip label="change language" {...tooltipStyle}>
+        <MenuButton
+          as={IconButton}
+          icon={<IoLanguage />}
+          aria-label="change language"
+          {...headerButtonStyle}
+        />
+      </Tooltip>
+      <MenuList>
+        {lngs.map((lng) => (
+          <MenuItem
+            key={lng.code}
+            onClick={() => i18n.changeLanguage(lng.code)}
+          >
+            {lng.name}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Menu>
+  );
 };
 
 const GithubButton: React.FC<{ href: string }> = ({ href }) => {
@@ -103,6 +135,7 @@ export const Header: React.FC = () => {
         <Heading size="lg">PDF Editer</Heading>
         <Flex justify="flex-end" flex="1">
           <HStack spacing={2} justify="center">
+            <LanguageButton />
             <GithubButton href="https://github.com/nacht42/offline-pdf-editor" />
             <ThemeToggleButton />
             {isPdfExist && <OpenPdfManageDrawerButton />}

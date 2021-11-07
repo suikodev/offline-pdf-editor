@@ -3,8 +3,14 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 const DETECTION_OPTIONS = {
-  order: ["navigator"],
+  order: ["localStorage", "navigator"],
+  caches: ["localStorage"],
 };
+
+export const lngs = [
+  { code: "en", name: "English" },
+  { code: "zh", name: "中文" },
+];
 
 i18n
   .use(LanguageDetector)
