@@ -1,6 +1,8 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import en from "./locales/en.json";
+import zh from "./locales/zh.json";
 
 const DETECTION_OPTIONS = {
   order: ["localStorage", "navigator"],
@@ -13,44 +15,8 @@ export const lngs = [
 ];
 
 export const resources = {
-  en: {
-    translation: {
-      header: {
-        changeLanguage: "Change Language",
-        goToGithubRepo: "Go to Github Repo",
-        toggleTheme: "Toggle Theme",
-        openPDFmanegeMenu: "Open PDF manege Menu",
-        choosePDF: "Choose PDF",
-      },
-      home: {
-        banner: {
-          title: "Edit your PDF all offline in browser ",
-          description:
-            "This is a PDF editor which runs in your browser totally offline after all page have loaded. your PDFs and your personal infomation won't send to any server FOREVER.",
-          choosePdfButtonText: "Choose PDF",
-        },
-      },
-    },
-  },
-  zh: {
-    translation: {
-      header: {
-        changeLanguage: "切换语言",
-        goToGithubRepo: "前往 Github 仓库",
-        toggleTheme: "切换主题",
-        openPDFmanegeMenu: "打开 PDF 管理菜单",
-        choosePDF: "选择 PDF",
-      },
-      home: {
-        banner: {
-          title: "在浏览器中离线编辑PDF",
-          description:
-            "这是一个 PDF 编辑器，它在所有页面加载完成后在你的浏览器中完全离线运行。你的PDF和你的个人信息将永远不会发送到任何服务器。",
-          choosePdfButtonText: "选择 PDF",
-        },
-      },
-    },
-  },
+  en,
+  zh,
 } as const;
 
 i18n
