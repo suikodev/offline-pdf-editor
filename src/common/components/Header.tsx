@@ -76,7 +76,7 @@ const OpenPdfManageDrawerButton: React.FC = () => {
   return (
     <>
       <Tooltip
-        label="open PDF mange menu"
+        label="open PDF manage menu"
         hasArrow
         fontSize="md"
         placement="auto"
