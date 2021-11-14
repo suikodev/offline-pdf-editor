@@ -3,10 +3,10 @@ import React from "react";
 import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../common/hooks";
 import { PdfDocument } from "./components/PdfDocument";
-import { useIfShouldRedirectToHomePage } from "../../common/hooks/useIfShouldRedirectToHomePage";
+import { useRedirectToHomeWhenNoPdf } from "../../common/hooks/useRedirectToHomeWhenNoPdf";
 
 export const Overview: React.FC = () => {
-  useIfShouldRedirectToHomePage();
+  useRedirectToHomeWhenNoPdf();
 
   const pdfIdList = useAppSelector(
     (state) => state.pdfInfo.pdfInfoList.map((i) => i.id),

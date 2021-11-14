@@ -1,8 +1,8 @@
-import { Container } from "@chakra-ui/layout";
+import { Container } from "@chakra-ui/react";
 import React from "react";
-import { useIfShouldRedirectToHomePage } from "../../common/hooks/useIfShouldRedirectToHomePage";
+import { useRedirectToHomeWhenNoPdf } from "../../common/hooks/useRedirectToHomeWhenNoPdf";
 
 export const Store: React.FC = () => {
-  useIfShouldRedirectToHomePage();
+  useRedirectToHomeWhenNoPdf();
   return <Container></Container>;
 };
