@@ -1,0 +1,19 @@
+name: Deploy to Firebase Hosting on merge
+'on':
+  push:
+    branches:
+      - main
+jobs:
+  cloudbase_deploy:
+    runs-on: ubuntu-latest
+    name: Tencent Cloudbase Deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deploy to Tencent CloudBase
+        uses: TencentCloudBase/cloudbase-action@v2
+        with:
+          secretId: ${{secrets.TENCENT_CLOUD_SECRET_ID}}
+          secretKey: ${{secrets.TENCENT_CLOUD_SECRET_KEY}}
+          envId: ${{secrets.CLOUDBASE_ENV_ID}}
+          CLOUDBASE_REGION: ${{secrets.CLOUDBASE_REGION}}
