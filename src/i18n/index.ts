@@ -24,7 +24,7 @@ i18n
   .use(initReactI18next)
   .init({
     detection: DETECTION_OPTIONS,
-    debug: true,
+    debug: process.env.NODE_ENV !== "production",
     fallbackLng: "en",
     interpolation: {
       escapeValue: false,
