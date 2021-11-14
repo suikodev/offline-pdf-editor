@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useAppSelector } from ".";
 import routes from "../../constants/routes.json";
@@ -8,7 +8,7 @@ export const useRedirectToHomeWhenNoPdf = () => {
   const isPdfListNull = useAppSelector(
     (state) => state.pdfInfo.pdfInfoList.length <= 0
   );
-  useEffect(() => {
+  useCallback(() => {
     isPdfListNull && history.replace(routes.HOME);
   }, [isPdfListNull]);
 };

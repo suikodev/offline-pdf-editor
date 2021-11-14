@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import { useHistory } from "react-router";
 import { useAppSelector } from "../../common/hooks";
 import { HomeBanner } from "./components/HomeBanner";
@@ -9,7 +9,7 @@ const useShouldRedirectToOverviewPage = () => {
   const isPdfListNull = useAppSelector(
     (state) => state.pdfInfo.pdfInfoList.length <= 0
   );
-  useEffect(() => {
+  useCallback(() => {
     !isPdfListNull && history.replace(routes.OVERVIEW);
   }, [isPdfListNull]);
 };
