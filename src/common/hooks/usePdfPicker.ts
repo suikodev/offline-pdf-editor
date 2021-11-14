@@ -18,7 +18,7 @@ export const usePdfPicker = (
 
   const onFilesSelected = async (e: Event) => {
     setIsLoading(true);
-    const files = ((e as unknown) as FormEvent<HTMLInputElement>).currentTarget
+    const files = (e as unknown as FormEvent<HTMLInputElement>).currentTarget
       .files;
     if (!files) return;
     const pdfInfoList: Omit<Pdf, "id">[] = [];
