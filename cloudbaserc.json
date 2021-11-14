@@ -16,7 +16,7 @@
       }
     }
   },
-  "region": "{{env.CLOUDBASE_REGION}}",
+  "region": "ap-guangzhou",
   "functionRoot": "./functions",
   "functions": []
 }
