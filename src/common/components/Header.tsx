@@ -22,6 +22,7 @@ import { usePdfPicker } from "../hooks/usePdfPicker";
 import { PdfManageDrawer } from "./PdfManageDrawer";
 import { lngs } from "../../i18n";
 import { useTranslation } from "react-i18next";
+import { repository } from "../../../package.json";
 
 const headerButtonStyle: Partial<ButtonProps> = {
   fontSize: "2xl",
@@ -136,11 +137,11 @@ export const Header: React.FC = () => {
   return (
     <Container as="header" maxWidth="container.xl" paddingY="1rem">
       <Flex justify="start" align="center">
-        <Heading size="lg">Offline PDF Editer</Heading>
+        <Heading size="lg">Offline PDF Editor</Heading>
         <Flex justify="flex-end" flex="1">
           <HStack spacing={2} justify="center">
             <LanguageButton />
-            <GithubButton href="https://github.com/nacht42/offline-pdf-editor" />
+            <GithubButton href={repository.url} />
             <ThemeToggleButton />
             {isPdfExist && <OpenPdfManageDrawerButton />}
             {!isPdfExist && <ChoosePdfIconButton />}

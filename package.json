@@ -2,6 +2,10 @@
   "name": "offline-pdf-editor",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nacht42/offline-pdf-editor.git"
+  },
   "dependencies": {
     "@chakra-ui/react": "^1.6.12",
     "@emotion/react": "^11",
