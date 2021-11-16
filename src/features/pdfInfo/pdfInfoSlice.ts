@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import { Pdf, PdfStore } from "../../common/storage/PdfStore";
 
-// omit pdf content to avoid putting non-serializable data in state
-export type PdfInfo = Omit<Pdf, "content">;
+// omit pdf data to avoid putting non-serializable data in state
+export type PdfInfo = Omit<Pdf, "data">;
 
 type PdfInfoState = {
   pdfInfoList: PdfInfo[];
