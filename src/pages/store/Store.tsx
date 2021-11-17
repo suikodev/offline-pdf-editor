@@ -14,7 +14,7 @@ export const Store: React.FC = () => {
   return (
     <Container>
       {pdfIdList.map((id) => (
-        <PdfCover pdfId={id} key={id} />
+        <PdfCover pdfId={id} key={id} width={200} height={300} />
       ))}
     </Container>
   );
