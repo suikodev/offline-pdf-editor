@@ -4,6 +4,7 @@ import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 import { Flex, Skeleton } from "@chakra-ui/react";
 import { PDFDocument } from "pdf-lib";
 import { Pdf } from "../../../common/storage/PdfStore";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 
 const useCompatiblePageWidth = (
   pdf: Pdf | undefined,
