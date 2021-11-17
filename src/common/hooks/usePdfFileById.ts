@@ -10,6 +10,6 @@ export const usePdfFileById = (pdfId: string, deps: React.DependencyList) => {
     });
   }, deps);
 
-  const pdfFile = useMemo(() => pdf, [pdf?.id]);
+  const pdfFile = useMemo(() => pdf, [pdf?.id, deps]);
   return pdfFile;
 };
