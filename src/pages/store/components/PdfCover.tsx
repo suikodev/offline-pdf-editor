@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { usePdfFileById } from "../../../common/hooks/usePdfFileById";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
-import { Flex, Skeleton } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Text, Tooltip } from "@chakra-ui/react";
 import { PDFDocument } from "pdf-lib";
 import { Pdf } from "../../../common/storage/PdfStore";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -25,35 +25,49 @@ const useCompatiblePageWidth = (
 
 const PdfCover: React.FC<PdfCoverProps> = (props) => {
   const { pdfId, width, height } = props;
+  const [isLoaded, setIsLoaded] = React.useState(false);
 
   const pdfFile = usePdfFileById(pdfId, []);
 
   const pageWidth = useCompatiblePageWidth(pdfFile, { width, height });
 
   return (
-    <Flex
-      width={width}
-      height={height}
-      justifyContent="center"
-      alignItems="center"
-    >
-      {pdfFile && pageWidth && (
-        <Document
-          options={{
-            cMapUrl: "cmaps/",
-            cMapPacked: true,
-          }}
-          file={pdfFile}
-          loading={<></>}
-        >
-          <Page
-            width={pageWidth}
-            pageNumber={1}
-            loading={<Skeleton width={width} height={height} />}
-          />
-        </Document>
-      )}
-    </Flex>
+    <Box width={width} overflow="hidden">
+      <Skeleton
+        as={Flex}
+        height={height}
+        isLoaded={isLoaded}
+        alignItems="center"
+        justifyContent="center"
+      >
+        {pdfFile && (
+          <Document
+            options={{
+              cMapUrl: "cmaps/",
+              cMapPacked: true,
+            }}
+            file={pdfFile}
+            loading={<></>}
+          >
+            {pageWidth && (
+              <Page
+                width={pageWidth}
+                pageNumber={1}
+                loading={<></>}
+                onLoadSuccess={() => setIsLoaded(true)}
+              />
+            )}
+          </Document>
+        )}
+      </Skeleton>
+      <Skeleton isLoaded={isLoaded}>
+        <Tooltip label={pdfFile?.filename}>
+          <Text whiteSpace="nowrap" fontWeight="bold">
+            {pdfFile?.filename}
+          </Text>
+        </Tooltip>
+      </Skeleton>
+    </Box>
   );
 };
 
@@ -63,4 +77,4 @@ type PdfCoverProps = {
   height: number;
 };
 
-export default PdfCover;
+export default React.memo(PdfCover);
