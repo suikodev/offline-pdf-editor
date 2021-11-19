@@ -49,7 +49,7 @@ const PdfManageListItem: React.FC<{ id: string }> = (props) => {
               onClick={removePdf}
               icon={<IoTrash />}
               aria-label={`delete ${filename}`}
-              colorScheme="red"
+              colorScheme="secondary"
               size="sm"
             />
           </Tooltip>
@@ -70,7 +70,7 @@ const ChoosePdfButton = () => {
       isLoading={isLoading}
       isFullWidth
       size="sm"
-      colorScheme="blue"
+      colorScheme="brand"
     >
       choose more PDF
     </Button>
