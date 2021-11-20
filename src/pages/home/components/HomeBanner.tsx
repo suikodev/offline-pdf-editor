@@ -7,8 +7,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
-import { useHistory } from "react-router";
-import routes from "../../../constants/routes.json";
 import { ChoosePdfButton } from "../../../common/components/ChoosePdfButton";
 import { useTranslation } from "react-i18next";
 import { MotionText } from "../../../common/components/motionComponents";
@@ -50,11 +48,6 @@ const DecorationText: React.FC = () => {
 export const HomeBanner: React.FC = () => {
   const { t } = useTranslation();
   const backgroundColorValue = useColorModeValue("brand.50", "gray.700");
-  const history = useHistory();
-
-  const handlePdfFileStoreSuccess = () => {
-    history.replace(routes.OVERVIEW);
-  };
   return (
     <Box as="section" backgroundColor={backgroundColorValue}>
       <Container maxWidth="container.lg">
@@ -66,12 +59,7 @@ export const HomeBanner: React.FC = () => {
             {t("home.banner.description")}
           </Text>
           <DecorationText />
-          <ChoosePdfButton
-            onPdfStoreSuccess={handlePdfFileStoreSuccess}
-            size="lg"
-            colorScheme="brand"
-            marginY="2rem"
-          >
+          <ChoosePdfButton size="lg" colorScheme="brand" marginY="2rem">
             {t("home.banner.choosePdfButtonText")}
           </ChoosePdfButton>
         </Flex>

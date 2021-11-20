@@ -5,11 +5,11 @@ import { Pdf, PdfStore } from "../../common/storage/PdfStore";
 export type PdfInfo = Omit<Pdf, "data">;
 
 type PdfInfoState = {
-  pdfInfoList: PdfInfo[];
+  pdfInfoList: PdfInfo[] | null;
 };
 
 const initialState: PdfInfoState = {
-  pdfInfoList: [],
+  pdfInfoList: null,
 };
 
 const concat = createAsyncThunk(
@@ -49,13 +49,16 @@ const pdfInfoSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(concat.fulfilled, (state, action) => {
-      state.pdfInfoList = [...state.pdfInfoList, ...action.payload];
+      if (!state.pdfInfoList) {
+        state.pdfInfoList = [...action.payload];
+      } else {
+        state.pdfInfoList = [...state.pdfInfoList, ...action.payload];
+      }
     });
 
     builder.addCase(remove.fulfilled, (state, action) => {
-      state.pdfInfoList = state.pdfInfoList.filter(
-        (i) => !action.payload.includes(i.id)
-      );
+      state.pdfInfoList =
+        state.pdfInfoList?.filter((i) => !action.payload.includes(i.id)) || [];
     });
 
     builder.addCase(init.fulfilled, (state, action) => {

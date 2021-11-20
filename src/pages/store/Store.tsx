@@ -8,7 +8,7 @@ import PdfCover from "./components/PdfCover";
 export const Store: React.FC = () => {
   useRedirectToHomeWhenNoPdf();
   const pdfIdList = useAppSelector(
-    (state) => state.pdfInfo.pdfInfoList.map((i) => i.id),
+    (state) => state.pdfInfo.pdfInfoList?.map((i) => i.id) || [],
     shallowEqual
   );
   return (

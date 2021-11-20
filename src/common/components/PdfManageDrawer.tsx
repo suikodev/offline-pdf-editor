@@ -23,7 +23,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { usePdfPicker } from "../hooks/usePdfPicker";
 
 const selectPdfById = (state: RootState, id: string) =>
-  state.pdfInfo.pdfInfoList.find((i) => i.id === id);
+  state.pdfInfo.pdfInfoList?.find((i) => i.id === id);
 
 const PdfManageListItem: React.FC<{ id: string }> = (props) => {
   const { filename, id: pdfId } = useAppSelector((state) =>
@@ -78,8 +78,8 @@ const ChoosePdfButton = () => {
 };
 
 export const PdfManageDrawer: React.FC<PdfManageDrawerProps> = (props) => {
-  const pdfIdList = useAppSelector((state) =>
-    state.pdfInfo.pdfInfoList.map((i) => i.id)
+  const pdfIdList = useAppSelector(
+    (state) => state.pdfInfo.pdfInfoList?.map((i) => i.id) || []
   );
 
   return (

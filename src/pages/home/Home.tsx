@@ -1,18 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 import { useAppSelector } from "../../common/hooks";
 import { HomeBanner } from "./components/HomeBanner";
 import routes from "../../constants/routes.json";
-import { useUpdateEffect } from "react-use";
 
 const useShouldRedirectToStorePage = () => {
   const history = useHistory();
-  const isPdfListNull = useAppSelector(
-    (state) => state.pdfInfo.pdfInfoList.length <= 0
+  const isPdfListEmpty = useAppSelector(
+    (state) => (state.pdfInfo.pdfInfoList?.length || 0) === 0
   );
-  useUpdateEffect(() => {
-    !isPdfListNull && history.replace(routes.STORE);
-  }, [isPdfListNull]);
+  useEffect(() => {
+    !isPdfListEmpty && history.replace(routes.STORE);
+  }, [isPdfListEmpty]);
 };
 
 export const Home: React.FC = () => {

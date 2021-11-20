@@ -5,10 +5,11 @@ import routes from "../../constants/routes.json";
 
 export const useRedirectToHomeWhenNoPdf = () => {
   const history = useHistory();
-  const isPdfListNull = useAppSelector(
-    (state) => state.pdfInfo.pdfInfoList.length <= 0
+  const isPdfListEmpty = useAppSelector((state) =>
+    state.pdfInfo.pdfInfoList?.length === 0 ? true : false
   );
+  console.log("isPdfListEmpty", isPdfListEmpty);
   useUpdateEffect(() => {
-    isPdfListNull && history.replace(routes.HOME);
-  }, [isPdfListNull]);
+    isPdfListEmpty && history.replace(routes.HOME);
+  }, [isPdfListEmpty]);
 };
