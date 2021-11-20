@@ -1,4 +1,4 @@
-import { Container, Flex, Heading, HStack } from "@chakra-ui/layout";
+import { Box, Flex, Heading, HStack } from "@chakra-ui/layout";
 import {
   ButtonProps,
   Icon,
@@ -26,6 +26,7 @@ import { repository } from "../../../package.json";
 
 const headerButtonStyle: Partial<ButtonProps> = {
   fontSize: "2xl",
+  colorScheme: "brand",
 };
 
 const tooltipStyle: Partial<TooltipProps> = {
@@ -131,13 +132,19 @@ const OpenPdfManageDrawerButton: React.FC = () => {
 };
 
 export const Header: React.FC = () => {
+  const bgGradient = useColorModeValue(
+    "linear(to-l, brand.500, secondary.500)",
+    "linear(to-l, brand.200, secondary.200)"
+  );
   const isPdfExist = useAppSelector(
-    (state) => state.pdfInfo.pdfInfoList.length > 0
+    (state) => (state.pdfList.data?.length || 0) > 0
   );
   return (
-    <Container as="header" maxWidth="container.xl" paddingY="1rem">
+    <Box as="header" paddingY="16px" paddingX="32px">
       <Flex justify="start" align="center">
-        <Heading size="lg">Offline PDF Editor</Heading>
+        <Heading size="lg" bgGradient={bgGradient} bgClip="text">
+          Offline PDF Editor
+        </Heading>
         <Flex justify="flex-end" flex="1">
           <HStack spacing={2} justify="center">
             <LanguageButton />
@@ -148,6 +155,6 @@ export const Header: React.FC = () => {
           </HStack>
         </Flex>
       </Flex>
-    </Container>
+    </Box>
   );
 };

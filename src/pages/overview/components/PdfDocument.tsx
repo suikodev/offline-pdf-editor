@@ -7,7 +7,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { HTMLMotionProps, motion } from "framer-motion";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { PageProps } from "react-pdf";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 import { usePdfFileById } from "../../../common/hooks/usePdfFileById";
@@ -67,8 +67,6 @@ export const PdfDocument: React.FC<{ pdfId: string }> = (props) => {
 
   const pdfFile = usePdfFileById(props.pdfId, []);
 
-  const memorizedFile = useMemo(() => ({ data: pdfFile?.content }), [pdfFile]);
-
   const [numPages, setNumPages] = useState(0);
   return (
     <>
@@ -78,7 +76,7 @@ export const PdfDocument: React.FC<{ pdfId: string }> = (props) => {
             cMapUrl: "cmaps/",
             cMapPacked: true,
           }}
-          file={memorizedFile}
+          file={pdfFile}
           onLoadSuccess={({ numPages }) => {
             setNumPages(numPages);
           }}

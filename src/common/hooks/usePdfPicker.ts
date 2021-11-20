@@ -26,7 +26,7 @@ export const usePdfPicker = (
       for (const file of Array.from(files)) {
         pdfInfoList.push({
           filename: file.name,
-          content: new Uint8Array(await file.arrayBuffer()),
+          data: new Uint8Array(await file.arrayBuffer()),
         });
       }
 

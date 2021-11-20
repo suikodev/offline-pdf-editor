@@ -4,18 +4,18 @@ import { useAppSelector } from "../../common/hooks";
 import { HomeBanner } from "./components/HomeBanner";
 import routes from "../../constants/routes.json";
 
-const useShouldRedirectToOverviewPage = () => {
+const useShouldRedirectToStorePage = () => {
   const history = useHistory();
-  const isPdfListNull = useAppSelector(
-    (state) => state.pdfInfo.pdfInfoList.length <= 0
+  const isPdfListEmpty = useAppSelector(
+    (state) => (state.pdfList.data?.length || 0) === 0
   );
   useEffect(() => {
-    !isPdfListNull && history.replace(routes.OVERVIEW);
-  }, [isPdfListNull]);
+    !isPdfListEmpty && history.replace(routes.STORE);
+  }, [isPdfListEmpty]);
 };
 
 export const Home: React.FC = () => {
-  useShouldRedirectToOverviewPage();
+  useShouldRedirectToStorePage();
   return (
     <>
       <HomeBanner />

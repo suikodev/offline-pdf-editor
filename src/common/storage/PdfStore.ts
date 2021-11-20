@@ -4,7 +4,7 @@ import storage from "../../constants/storage.json";
 export type Pdf = {
   id: string;
   filename: string;
-  content: Uint8Array;
+  data: Uint8Array;
 };
 
 const PdfStorage = localforage.createInstance({
