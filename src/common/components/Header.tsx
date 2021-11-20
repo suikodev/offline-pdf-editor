@@ -133,14 +133,14 @@ const OpenPdfManageDrawerButton: React.FC = () => {
 
 export const Header: React.FC = () => {
   const bgGradient = useColorModeValue(
-    "linear(to-l, #1f12d4, #bf00e6)",
-    "linear(to-l, #8f88f7, #f87fff)"
+    "linear(to-l, brand.500, secondary.500)",
+    "linear(to-l, brand.200, secondary.200)"
   );
   const isPdfExist = useAppSelector(
     (state) => state.pdfInfo.pdfInfoList.length > 0
   );
   return (
-    <Box as="header" paddingY="20px" paddingX="32px">
+    <Box as="header" paddingY="16px" paddingX="32px">
       <Flex justify="start" align="center">
         <Heading size="lg" bgGradient={bgGradient} bgClip="text">
           Offline PDF Editor
