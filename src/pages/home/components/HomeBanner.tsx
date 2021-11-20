@@ -34,8 +34,8 @@ const DecorationText: React.FC = () => {
         background: colorValue,
         backgroundClip: "text",
         WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
       }}
+      bgClip="text"
       transition={{
         duration: 1,
         repeat: Infinity,
