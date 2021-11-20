@@ -3,7 +3,7 @@ import pdfInfoReducer from "../features/pdfInfo/pdfInfoSlice";
 
 export const store = configureStore({
   reducer: {
-    pdfInfo: pdfInfoReducer,
+    pdfList: pdfInfoReducer,
   },
 });
 

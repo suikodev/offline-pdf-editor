@@ -7,7 +7,7 @@ import routes from "../../constants/routes.json";
 const useShouldRedirectToStorePage = () => {
   const history = useHistory();
   const isPdfListEmpty = useAppSelector(
-    (state) => (state.pdfInfo.pdfInfoList?.length || 0) === 0
+    (state) => (state.pdfList.data?.length || 0) === 0
   );
   useEffect(() => {
     !isPdfListEmpty && history.replace(routes.STORE);

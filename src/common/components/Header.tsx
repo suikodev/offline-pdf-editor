@@ -137,7 +137,7 @@ export const Header: React.FC = () => {
     "linear(to-l, brand.200, secondary.200)"
   );
   const isPdfExist = useAppSelector(
-    (state) => (state.pdfInfo.pdfInfoList?.length || 0) > 0
+    (state) => (state.pdfList.data?.length || 0) > 0
   );
   return (
     <Box as="header" paddingY="16px" paddingX="32px">

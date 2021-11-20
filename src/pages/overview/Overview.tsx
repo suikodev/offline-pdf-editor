@@ -9,7 +9,7 @@ export const Overview: React.FC = () => {
   useRedirectToHomeWhenNoPdf();
 
   const pdfIdList = useAppSelector(
-    (state) => state.pdfInfo.pdfInfoList?.map((i) => i.id) || [],
+    (state) => state.pdfList.data?.map((i) => i.id) || [],
     shallowEqual
   );
 
