@@ -60,7 +60,7 @@ const PdfCover: React.FC<PdfCoverProps> = (props) => {
           </Document>
         )}
       </Skeleton>
-      <Skeleton isLoaded={isLoaded}>
+      <Skeleton isLoaded={isLoaded} marginTop="8px">
         <Tooltip label={pdfFile?.filename}>
           <Text whiteSpace="nowrap" fontWeight="bold">
             {pdfFile?.filename}
