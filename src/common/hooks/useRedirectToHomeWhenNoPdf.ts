@@ -8,7 +8,6 @@ export const useRedirectToHomeWhenNoPdf = () => {
   const isPdfListEmpty = useAppSelector((state) =>
     state.pdfList.data?.length === 0 ? true : false
   );
-  console.log("isPdfListEmpty", isPdfListEmpty);
   useUpdateEffect(() => {
     isPdfListEmpty && history.replace(routes.HOME);
   }, [isPdfListEmpty]);

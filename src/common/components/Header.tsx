@@ -140,7 +140,7 @@ export const Header: React.FC = () => {
     (state) => (state.pdfList.data?.length || 0) > 0
   );
   return (
-    <Box as="header" paddingY="16px" paddingX="32px">
+    <Box as="header" paddingY="16px" paddingX="16px">
       <Flex justify="start" align="center">
         <Heading size="lg" bgGradient={bgGradient} bgClip="text">
           Offline PDF Editor

@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { usePdfFileById } from "../../../common/hooks/usePdfFileById";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
-import { Box, Flex, Skeleton, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Flex, Skeleton } from "@chakra-ui/react";
 import { PDFDocument } from "pdf-lib";
 import { Pdf } from "../../../common/storage/PdfStore";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import { useColor } from "../../../common/hooks/useColor";
+import PdfFilename from "../../../common/components/PdfFilename";
 
 const useCompatiblePageWidth = (
   pdf: Pdf | undefined,
@@ -31,14 +33,18 @@ const PdfCover: React.FC<PdfCoverProps> = (props) => {
 
   const pageWidth = useCompatiblePageWidth(pdfFile, { width, height });
 
+  const colors = useColor();
+
   return (
-    <Box width={width} overflow="hidden">
+    <Box width={width}>
       <Skeleton
         as={Flex}
         height={height}
         isLoaded={isLoaded}
         alignItems="center"
         justifyContent="center"
+        outline={`1px ${colors.brand[300]} solid`}
+        boxShadow={` 6px 6px ${colors.brand[200]} `}
       >
         {pdfFile && (
           <Document
@@ -60,13 +66,7 @@ const PdfCover: React.FC<PdfCoverProps> = (props) => {
           </Document>
         )}
       </Skeleton>
-      <Skeleton isLoaded={isLoaded} marginTop="8px">
-        <Tooltip label={pdfFile?.filename}>
-          <Text whiteSpace="nowrap" fontWeight="bold">
-            {pdfFile?.filename}
-          </Text>
-        </Tooltip>
-      </Skeleton>
+      <PdfFilename width={width} pdfId={pdfId} />
     </Box>
   );
 };

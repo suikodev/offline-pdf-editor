@@ -32,13 +32,13 @@ const DecorationText: React.FC = () => {
         background: colorValue,
         backgroundClip: "text",
         WebkitBackgroundClip: "text",
+        transition: {
+          duration: 1,
+          repeat: Infinity,
+          repeatType: "mirror",
+        },
       }}
       bgClip="text"
-      transition={{
-        duration: 1,
-        repeat: Infinity,
-        repeatType: "mirror",
-      }}
     >
       ◭ ◭ ◭ ◭ ◭ ◭ ◭ ◭
     </MotionText>
