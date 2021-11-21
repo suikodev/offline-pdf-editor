@@ -7,6 +7,7 @@ import { Pdf } from "../../../common/storage/PdfStore";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import { MotionText } from "../../../common/components/motionComponents";
 import { useColor } from "../../../common/hooks/useColor";
+import { useAppSelector } from "../../../common/hooks";
 
 const useCompatiblePageWidth = (
   pdf: Pdf | undefined,
@@ -25,10 +26,59 @@ const useCompatiblePageWidth = (
   return pageWidth;
 };
 
+const PdfFileName: React.FC<{ width: number; pdfId: string }> = (props) => {
+  const { width, pdfId } = props;
+
+  const filename = useAppSelector(
+    (state) => state.pdfList.data?.find((p) => p.id === pdfId)?.filename
+  );
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  useEffect(() => {
+    if (filename) setIsLoaded(true);
+  }, [filename]);
+
+  const [isHoveringFilename, setIsHoveringFilename] = React.useState(false);
+  const ref = useRef<HTMLParagraphElement>(null);
+  return (
+    <Skeleton
+      display="flex"
+      isLoaded={isLoaded}
+      marginTop="8px"
+      overflow="hidden"
+    >
+      <Tooltip label={filename}>
+        <MotionText
+          ref={ref}
+          animate={
+            (ref.current?.clientWidth || 0) > width && !isHoveringFilename
+              ? {
+                  x: [0, -((ref.current?.clientWidth || 0) - width)],
+                  transition: {
+                    duration: ((ref.current?.clientWidth || 0) - width) / 50,
+                    repeatDelay: 0.5,
+                    velocity: 0.1,
+                    type: "spring",
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                  },
+                }
+              : undefined
+          }
+          onHoverStart={() => setIsHoveringFilename(true)}
+          onHoverEnd={() => setIsHoveringFilename(false)}
+          whiteSpace="nowrap"
+          fontWeight="bold"
+        >
+          {filename}
+        </MotionText>
+      </Tooltip>
+    </Skeleton>
+  );
+};
+
 const PdfCover: React.FC<PdfCoverProps> = (props) => {
   const { pdfId, width, height } = props;
   const [isLoaded, setIsLoaded] = React.useState(false);
-  const ref = useRef<HTMLParagraphElement>(null);
 
   const pdfFile = usePdfFileById(pdfId, []);
 
@@ -67,37 +117,7 @@ const PdfCover: React.FC<PdfCoverProps> = (props) => {
           </Document>
         )}
       </Skeleton>
-      <Skeleton
-        display="flex"
-        isLoaded={isLoaded}
-        marginTop="8px"
-        overflow="hidden"
-      >
-        <Tooltip label={pdfFile?.filename}>
-          <MotionText
-            ref={ref}
-            whileHover={
-              (ref.current?.clientWidth || 0) > width
-                ? {
-                    x: [0, -((ref.current?.clientWidth || 0) - width)],
-                    transition: {
-                      duration: ((ref.current?.clientWidth || 0) - width) / 50,
-                      repeatDelay: 0.5,
-                      velocity: 0.1,
-                      type: "spring",
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                    },
-                  }
-                : undefined
-            }
-            whiteSpace="nowrap"
-            fontWeight="bold"
-          >
-            {pdfFile?.filename}
-          </MotionText>
-        </Tooltip>
-      </Skeleton>
+      <PdfFileName width={width} pdfId={pdfId} />
     </Box>
   );
 };

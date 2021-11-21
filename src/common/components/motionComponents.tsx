@@ -3,13 +3,20 @@ import {
   FlexProps,
   Heading,
   HeadingProps,
-  Text,
   TextProps,
+  Text,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { motion, MotionProps } from "framer-motion";
+import React from "react";
 
-export const MotionText = motion<TextProps>(Text);
+type Merge<P, T> = Omit<P, keyof T> & T;
+type MotionTextProps = Merge<TextProps, MotionProps> & {
+  ref?: React.Ref<SVGElement | HTMLElement>;
+};
 
-export const MotionHeading = motion<HeadingProps>(Heading);
+export const MotionText: React.FC<MotionTextProps> = motion(Text);
 
-export const MotionFlex = motion<FlexProps>(Flex);
+export const MotionHeading =
+  motion<Omit<HeadingProps, keyof MotionProps>>(Heading);
+
+export const MotionFlex = motion<Omit<FlexProps, keyof MotionProps>>(Flex);
