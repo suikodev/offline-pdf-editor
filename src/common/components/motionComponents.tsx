@@ -1,7 +1,15 @@
-import { HTMLChakraProps, Text } from "@chakra-ui/react";
-import { HTMLMotionProps, motion } from "framer-motion";
+import {
+  Flex,
+  FlexProps,
+  Heading,
+  HeadingProps,
+  Text,
+  TextProps,
+} from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
-type Merge<P, T> = Omit<P, keyof T> & T;
-type MotionTextProps = Merge<HTMLChakraProps<"p">, HTMLMotionProps<"p">>;
+export const MotionText = motion<TextProps>(Text);
 
-export const MotionText: React.FC<MotionTextProps> = motion(Text);
+export const MotionHeading = motion<HeadingProps>(Heading);
+
+export const MotionFlex = motion<FlexProps>(Flex);
