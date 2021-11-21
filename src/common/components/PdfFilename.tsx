@@ -45,7 +45,6 @@ const PdfFilename: React.FC<PdfFileNameProps> = (props) => {
           onHoverStart={() => setIsHoveringFilename(true)}
           onHoverEnd={() => setIsHoveringFilename(false)}
           whiteSpace="nowrap"
-          fontWeight="bold"
           {...textProps}
         >
           {filename}
