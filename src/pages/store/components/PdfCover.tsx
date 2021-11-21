@@ -1,13 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { usePdfFileById } from "../../../common/hooks/usePdfFileById";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
-import { Box, Flex, Skeleton, Tooltip } from "@chakra-ui/react";
+import { Box, Flex, Skeleton } from "@chakra-ui/react";
 import { PDFDocument } from "pdf-lib";
 import { Pdf } from "../../../common/storage/PdfStore";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import { MotionText } from "../../../common/components/motionComponents";
 import { useColor } from "../../../common/hooks/useColor";
-import { useAppSelector } from "../../../common/hooks";
+import PdfFilename from "../../../common/components/PdfFilename";
 
 const useCompatiblePageWidth = (
   pdf: Pdf | undefined,
@@ -24,56 +23,6 @@ const useCompatiblePageWidth = (
     });
   }, [pdf]);
   return pageWidth;
-};
-
-const PdfFileName: React.FC<{ width: number; pdfId: string }> = (props) => {
-  const { width, pdfId } = props;
-
-  const filename = useAppSelector(
-    (state) => state.pdfList.data?.find((p) => p.id === pdfId)?.filename
-  );
-  const [isLoaded, setIsLoaded] = React.useState(false);
-  useEffect(() => {
-    if (filename) setIsLoaded(true);
-  }, [filename]);
-
-  const [isHoveringFilename, setIsHoveringFilename] = React.useState(false);
-  const ref = useRef<HTMLParagraphElement>(null);
-  return (
-    <Skeleton
-      display="flex"
-      isLoaded={isLoaded}
-      marginTop="8px"
-      overflow="hidden"
-    >
-      <Tooltip label={filename}>
-        <MotionText
-          ref={ref}
-          animate={
-            (ref.current?.clientWidth || 0) > width && !isHoveringFilename
-              ? {
-                  x: [0, -((ref.current?.clientWidth || 0) - width)],
-                  transition: {
-                    duration: ((ref.current?.clientWidth || 0) - width) / 50,
-                    repeatDelay: 0.5,
-                    velocity: 0.1,
-                    type: "spring",
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  },
-                }
-              : undefined
-          }
-          onHoverStart={() => setIsHoveringFilename(true)}
-          onHoverEnd={() => setIsHoveringFilename(false)}
-          whiteSpace="nowrap"
-          fontWeight="bold"
-        >
-          {filename}
-        </MotionText>
-      </Tooltip>
-    </Skeleton>
-  );
 };
 
 const PdfCover: React.FC<PdfCoverProps> = (props) => {
@@ -117,7 +66,7 @@ const PdfCover: React.FC<PdfCoverProps> = (props) => {
           </Document>
         )}
       </Skeleton>
-      <PdfFileName width={width} pdfId={pdfId} />
+      <PdfFilename width={width} pdfId={pdfId} />
     </Box>
   );
 };
