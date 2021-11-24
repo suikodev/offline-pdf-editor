@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, HStack } from "@chakra-ui/layout";
+import { Flex, Heading, HStack } from "@chakra-ui/layout";
 import {
   ButtonProps,
   Icon,
@@ -140,21 +140,19 @@ export const Header: React.FC = () => {
     (state) => (state.pdfList.data?.length || 0) > 0
   );
   return (
-    <Box as="header" paddingY="16px" paddingX="16px">
-      <Flex justify="start" align="center">
-        <Heading size="lg" bgGradient={bgGradient} bgClip="text">
-          Offline PDF Editor
-        </Heading>
-        <Flex justify="flex-end" flex="1">
-          <HStack spacing={2} justify="center">
-            <LanguageButton />
-            <GithubButton href={repository.url} />
-            <ThemeToggleButton />
-            {isPdfExist && <OpenPdfManageDrawerButton />}
-            {!isPdfExist && <ChoosePdfIconButton />}
-          </HStack>
-        </Flex>
+    <Flex as="header" paddingY="16px" paddingX="16px" align="center">
+      <Heading size="lg" bgGradient={bgGradient} bgClip="text">
+        Offline PDF Editor
+      </Heading>
+      <Flex justify="flex-end" flex="1">
+        <HStack spacing={2} justify="center">
+          <LanguageButton />
+          <GithubButton href={repository.url} />
+          <ThemeToggleButton />
+          {isPdfExist && <OpenPdfManageDrawerButton />}
+          {!isPdfExist && <ChoosePdfIconButton />}
+        </HStack>
       </Flex>
-    </Box>
+    </Flex>
   );
 };

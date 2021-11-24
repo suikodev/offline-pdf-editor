@@ -1,8 +1,7 @@
 import { Skeleton, Tooltip } from "@chakra-ui/react";
-import { MotionProps } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../hooks";
-import { MotionText } from "./motionComponents";
+import { MotionText, MotionTextProps } from "./motionComponents";
 
 const PdfFilename: React.FC<PdfFileNameProps> = (props) => {
   const { width, pdfId, ...textProps } = props;
@@ -54,6 +53,6 @@ const PdfFilename: React.FC<PdfFileNameProps> = (props) => {
   );
 };
 
-type PdfFileNameProps = { width: number; pdfId: string } & MotionProps;
+type PdfFileNameProps = { width: number; pdfId: string } & MotionTextProps;
 
 export default React.memo(PdfFilename);
