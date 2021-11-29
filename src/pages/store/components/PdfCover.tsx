@@ -57,6 +57,8 @@ const PdfCover: React.FC<PdfCoverProps> = (props) => {
           >
             {pageWidth && (
               <Page
+                renderAnnotationLayer={false}
+                renderTextLayer={false}
                 width={pageWidth}
                 pageNumber={1}
                 loading={<></>}
