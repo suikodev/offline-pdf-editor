@@ -38,7 +38,7 @@ const tooltipStyle: Partial<TooltipProps> = {
 const LanguageButton: React.FC = () => {
   const { i18n, t } = useTranslation();
   return (
-    <Menu>
+    <Menu autoSelect={false}>
       <Tooltip label={t("header.changeLanguage")} {...tooltipStyle}>
         <MenuButton
           as={IconButton}
