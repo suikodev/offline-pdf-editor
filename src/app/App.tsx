@@ -8,6 +8,7 @@ import { Home } from "../pages/home";
 import { Overview } from "../pages/overview";
 import { Store } from "../pages/store";
 import "../i18n";
+import ServiceWorkerUpdateDialog from "../common/components/ServiceWorkerUpdateDialog";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      <ServiceWorkerUpdateDialog />
     </>
   );
 }
