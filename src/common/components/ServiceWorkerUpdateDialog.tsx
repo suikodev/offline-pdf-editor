@@ -10,11 +10,14 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useAppSelector } from "../hooks";
+import { useTranslation } from "react-i18next";
 
 const ServiceWorkerUpdateDialog: React.FC = () => {
   const isUpdateAvailable = useAppSelector(
     (state) => state.serviceWorker.isUpdateAvailable
   );
+
+  const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = React.useState(false);
   const cancelRef = React.useRef(null);
@@ -43,17 +46,19 @@ const ServiceWorkerUpdateDialog: React.FC = () => {
     >
       <AlertDialogOverlay />
       <AlertDialogContent>
-        <AlertDialogHeader>网站更新</AlertDialogHeader>
+        <AlertDialogHeader>
+          {t("serviceWorkerUpdateDialog.updateAvailable")}
+        </AlertDialogHeader>
         <AlertDialogCloseButton />
         <AlertDialogBody>
-          网站有更新内容, 是否立即更新? (选择稍后会在网站关闭后将自动更新)
+          {t("serviceWorkerUpdateDialog.updateAvailableDescription")}
         </AlertDialogBody>
         <AlertDialogFooter>
           <Button ref={cancelRef} onClick={handleClose}>
-            稍后
+            {t("serviceWorkerUpdateDialog.updateLater")}
           </Button>
           <Button colorScheme="red" ml={3} onClick={handleUpdate}>
-            立即更新
+            {t("serviceWorkerUpdateDialog.updateNow")}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

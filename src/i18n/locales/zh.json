@@ -13,6 +13,12 @@
         "description": "这是一个 PDF 编辑器，它在所有页面加载完成后在你的浏览器中完全离线运行。你的PDF和你的个人信息将永远不会发送到任何服务器。",
         "choosePdfButtonText": "选择 PDF"
       }
+    },
+    "serviceWorkerUpdateDialog": {
+      "updateAvailable": "有可用的更新",
+      "updateNow": "立即更新",
+      "updateLater": "稍后更新",
+      "updateAvailableDescription": "有新版本的 PDF 编辑器可用, 是否更新?"
     }
   }
 }
