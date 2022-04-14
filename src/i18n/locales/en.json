@@ -10,9 +10,15 @@
     "home": {
       "banner": {
         "title": "Edit your PDF all offline in browser ",
-        "description": "This is a PDF editor which runs in your browser totally offline after all page have loaded. your PDFs and your personal infomation won't send to any server FOREVER.",
+        "description": "This is a PDF editor which runs in your browser totally offline after all page have loaded. your PDFs and your personal information won't send to any server FOREVER.",
         "choosePdfButtonText": "Choose PDF"
       }
+    },
+    "serviceWorkerUpdateDialog": {
+      "updateAvailable": "Update Available",
+      "updateNow": "Update Now",
+      "updateLater": "Update Later",
+      "updateAvailableDescription": "A new version of PDF Editor is available. Would you like to update now?"
     }
   }
 }

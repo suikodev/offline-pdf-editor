@@ -10,6 +10,8 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
+import { setIsUpdateAvailable } from "./features/serviceWorker/serviceWorkerSlice";
+import { store } from "./app/store";
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -24,6 +26,10 @@ const isLocalhost = Boolean(
 type Config = {
   onSuccess?: (registration: ServiceWorkerRegistration) => void;
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
+};
+
+const invokeServiceWorkerRefreshFlow = () => {
+  store.dispatch(setIsUpdateAvailable(true));
 };
 
 export function register(config?: Config) {
@@ -56,6 +62,16 @@ export function register(config?: Config) {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config);
       }
+
+      let refreshing = false;
+
+      // detect controller change and refresh the page
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (!refreshing) {
+          window.location.reload();
+          refreshing = true;
+        }
+      });
     });
   }
 }
@@ -70,6 +86,14 @@ function registerValidSW(swUrl: string, config?: Config) {
           return;
         }
         installingWorker.onstatechange = () => {
+          if (registration.waiting) {
+            if (navigator.serviceWorker.controller) {
+              invokeServiceWorkerRefreshFlow();
+            } else {
+              console.log("Service Worker initialized for the first time");
+            }
+          }
+
           if (installingWorker.state === "installed") {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
